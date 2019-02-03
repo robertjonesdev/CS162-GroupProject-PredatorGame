@@ -16,7 +16,9 @@ class Ant: public Critter {
   public:
     Ant(int, int);
     void breed();
-    void move();
+    void move(Critter*** gameBoard);  //takes the board as a parameter so it can check spaces
+    bool getIsDoodlebug();
+    bool getIsAnt();
 };
 
 #endif

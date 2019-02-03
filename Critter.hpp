@@ -10,21 +10,25 @@
 #define CRITTER_HPP
 
 class Critter {
-  private:
-
   protected:
-    int locationX;
-    int locationY;
+    int row;
+    int col;
     int breedingCounter;
+    enum Direction {UP, RIGHT, DOWN, LEFT};  //AW: used for movement
+    bool isAnt;
+    bool isDoodlebug;
 
   public:
+    Critter();  //AW: default constructor, probably unused.
     Critter(int, int);
-    int getX();
-    int getY();
+    int getRow();
+    int getCol();
     int getBreedingCounter();
     void setBreedingCounter(int);
+    virtual bool getIsDoodlebug();
+    virtual bool getIsAnt();
     virtual void breed() = 0; //pure virtual function which will be overridden in child classes
-    virtual void move() = 0; //pure virtual function which will be overridden in child classes
+    virtual void move(Critter*** gameBoard) = 0; //pure virtual function which will be overridden in child classes
 };
 
 #endif
