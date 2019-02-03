@@ -24,6 +24,8 @@ class Board
     public:
         //Constructors and Deconstructor
         Board();
+        Board(int numSteps);  //AW: takes an int to set numSteps
+        Board(int numSteps, int rows, int cols);  //AW: constructor for extra credit, blank for now
         virtual ~Board();
 
         //Functions

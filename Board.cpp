@@ -17,17 +17,14 @@ using std::endl;
 
 
 //Constructors and Deconstructor
-/*********************************************************************
-** Default Constructor
-** The default constructor (can be changed) creates a 2-D Array of
-** Pointers to Critter Objects. All pointers are initialized to nullpointers
-** representing blanks. Next Doodlebugs are randomly placed on the board,
-** by instantiating Doodlebug objects. Then Ants are randomly placed in the
-** same manner.
-*********************************************************************/
-Board::Board()
+Board::Board() {}; //AW: unused default constructor
+Board::Board(int numSteps, int rows, int cols) {}; //AW: constructor for extra credit, blank for now
+
+Board::Board(int numSteps)
 {
-    srand(time(NULL));
+    //AW: set the number of steps to run
+    this->numSteps = numSteps;
+    
     //instantiate the game board
     gameBoard = new Critter**[MAX_ROWS];
     for (int i = 0; i < MAX_ROWS; i++)
@@ -47,14 +44,19 @@ Board::Board()
     //randomly place all the starting doodlebugs
     for (int counter = 0; counter < STARTING_DOODLEBUGS; counter++)
     {
-        while (!addDoodlebug(rand() % 20, rand() % 20)) { }
+        while (!addDoodlebug(rand() % 20, rand() % 20));  //picks random row/col, attempts to make Doodlebug
+                                                          //if unsuccessful pick two more random row/col until success
     }
 
-    //ranomdly place the all the starting ants
+    //randomly place the all the starting ants
     for (int counter = 0; counter < STARTING_ANTS; counter++)
     {
-        while (!addAnt(rand() % 20, rand() % 20)) { }
+        while (!addAnt(rand() % 20, rand() % 20));  //picks random row/col, attempts to make Ant
+                                                    //if unsuccessful pick two more random row/col until success
     }
+    printBoard();
+    runGame();
+  
 }
 
 /*********************************************************************
@@ -73,7 +75,6 @@ Board::~Board()
         }
         delete [] gameBoard[i];
     }
-
     delete [] gameBoard;
     gameBoard = nullptr;
 }
@@ -86,7 +87,28 @@ Board::~Board()
 *********************************************************************/
 void Board::runGame()
 {
-
+    while(numSteps > 0)
+    {
+        for(int i = 0; i < MAX_ROWS; i++)
+        {
+            for(int j = 0; j < MAX_COLS; j++)  //each move, iterate through the board
+            {
+                if(gameBoard[i][j] == nullptr) //we need to keep this test, because if we don't skip the nullptrs we try to deference them and that's bad
+                {
+                    cout << "Nothing here" << endl;  //for testing, remove later
+                }
+                else if(gameBoard[i][j]->getIsAnt())
+                {
+                    cout << "This is an ant" << endl;  //for testing, remove later
+                    gameBoard[i][j]->move(gameBoard);
+                }
+            }
+            cout << "Finished row " << i << endl;
+            printBoard();
+        }
+        printBoard();
+        numSteps--;  
+    }
 }
 
 /*********************************************************************
@@ -106,17 +128,17 @@ void Board::printBoard()
         cout << "|";
         for(int j = 0; j < MAX_COLS; j++)
         {
-            if (dynamic_cast<Ant*>(gameBoard[i][j]) != nullptr)
-            { //Is an Ant object.
-                cout << "O";
+            if (gameBoard[i][j] == nullptr)
+            { //it's empty
+                cout << " ";
             }
-            else if (dynamic_cast<Doodlebug*>(gameBoard[i][j]) != nullptr)
+            else if (gameBoard[i][j]->getIsDoodlebug())
             { //Is a doodlebug object.
                 cout << "X";
             }
             else
-            { //Is empty.
-                cout << " ";
+            { //Is an ant.
+                cout << "O";
             }
         }
         cout << "|\n";
@@ -137,31 +159,25 @@ void Board::printBoard()
 *********************************************************************/
 bool Board::addAnt(int row, int col)
 {
-    if (gameBoard[row][col] == nullptr)
-    {
-        gameBoard[row][col] = new Ant;
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+  if (gameBoard[row][col] == nullptr)  //if the board spot is unoccupied, make an Ant
+  {
+      gameBoard[row][col] = new Ant(row, col);   //AW: added (row, col) to Ant constructor call
+      return true;
+  }
+  else  //if the board spot was occupied, return false
+  {
+      return false;
+  }
 }
-/*********************************************************************
-** addDoodlbug(int, int)
-** This function instantiates a Doodlebug object to the gameBoard array.
-** First it tests whether the space is empty (nullptr). If it is empty
-** it continues and returns true. If the space is not empty, then the
-** function returns false without adding anything to the space.
-*********************************************************************/
-bool Board::addDoodlebug(int row, int col)
+
+bool Board::addDoodlebug(int row, int col)  //if the board spot is unoccupied, make a Doodlebug
 {
     if (gameBoard[row][col] == nullptr)
     {
-        gameBoard[row][col] = new Doodlebug;
+        gameBoard[row][col] = new Doodlebug(row, col); //AW: added (row, col) to Doodlebug constructor call
         return true;
     }
-    else
+    else  //if the board spot was occupied, return false
     {
         return false;
     }

@@ -1,0 +1,18 @@
+Day 1 (Feb 2)
+
+What I did today:
+
+1. Made makefile super spiffy:
+ -it automatically sees all the .cpp files in the directory and compiles them, now you don't need to manually edit filenames for each project.
+ -"make clean" works on Windows now
+2. Added a Board constructor that takes an int, so we can initialize numSteps we get from the user in main.
+3. Added greeting to main, prompting user for number of steps to run. 5000 is a completely arbitrary limit, we can change it.
+4. Added my input validation functions, feel free to use them. 
+ -Also includes clearScreen(), which clears the screen, and systemPause() which pauses the screen an prompts the user to press enter to continue.
+5. added enum to Critter class for movement: (Up is 0, right is 1, down is 2, left is 3)
+6. changed Critter move function to take the board (Critter*** gameBoard) as an arguement, so critters can check if spaces are adjacent
+7. changed all references to "x" and "y" to "row" and "col". Previously critters' location was x-y and the board was row-col, and I'm too dumb to be able to tell them apart on the fly.
+8. Added Ant::move function. I did a whole bunch of tests and finally got it working
+9. added bools "isAnt" and "isDoodlebug" to Critter class & ant/doodlebug constructors, and getIsAnt() and getIsDoodlebug() functions to Critter
+ -This way to move, we can iterate through the board, look for the isAnt/isDoodlebug flags and do stuff.
+10. Edited the printBoard() function to use the "isAnt/isDoodlebug" bools, the static_cast was giving weird behavior.

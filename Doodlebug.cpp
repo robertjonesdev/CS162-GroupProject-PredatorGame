@@ -7,9 +7,14 @@
 ***************************************************************/
 #include "Doodlebug.hpp"
 
+//For reference: enum class Direction {UP=0, RIGHT=1, DOWN=2, LEFT=3}
+
+
 //Doodlebug constructor. Takes an int for the x axis and an int for the y axis
-Doodlebug::Doodlebug(int x, int y): Critter(locationX, locationY) {
+Doodlebug::Doodlebug(int x, int y): Critter(row, col) {
   starvingCounter = 0;
+  isDoodlebug = true;
+  isAnt = false;
 }
 
 //Returns the starving counter
@@ -31,7 +36,17 @@ void Doodlebug::breed() {
 
 //Moves to an adjacent space with an Ant if possible. If not, moves to an empty adjacent space
 //If surrounded by Doodlebugs, the Doodlebug does not move
-void Doodlebug::move() {
+void Doodlebug::move(Critter*** gameBoard) {
   //Need to add function/steps to check if any adjacent spaces have Ants and if so, move there
   //Need to add function/steps to check if any adjacent spaces are empty and if so, move there
+}
+
+//Returns true if ant, otherwise false
+bool Doodlebug::getIsAnt() {
+  return isAnt;
+}
+
+//Returns true if doodlebug, otherwise false
+bool Doodlebug::getIsDoodlebug() {
+  return isDoodlebug;
 }
