@@ -15,6 +15,7 @@
 using std::cout;
 using std::endl;
 
+
 //Constructors and Deconstructor
 Board::Board() {}; //AW: unused default constructor
 Board::Board(int numSteps, int rows, int cols) {}; //AW: constructor for extra credit, blank for now
@@ -58,6 +59,11 @@ Board::Board(int numSteps)
   
 }
 
+/*********************************************************************
+** Deconstructor
+** Deconstructor deletes all dynamically created objects in the gameBoard Array.
+** Tested with Valgrind 2/2/2019 7:49PM
+*********************************************************************/
 Board::~Board()
 {
     //Deallocate memory for the dynamic arrow.
@@ -74,6 +80,11 @@ Board::~Board()
 }
 
 //Functions
+
+/*********************************************************************
+** runGame()
+**
+*********************************************************************/
 void Board::runGame()
 {
     while(numSteps > 0)
@@ -100,6 +111,10 @@ void Board::runGame()
     }
 }
 
+/*********************************************************************
+** printBoard()
+** This function prints the board to the console.
+*********************************************************************/
 void Board::printBoard()
 {
     //Top border
@@ -135,6 +150,13 @@ void Board::printBoard()
     cout.fill(' ');
 }
 
+/*********************************************************************
+** addAnt(int, int)
+** This function instantiates an Ant object to the gameBoard array.
+** First it tests whether the space is empty (nullptr). If it is empty
+** it continues and returns true. If the space is not empty, then the
+** function returns false without adding anything to the space.
+*********************************************************************/
 bool Board::addAnt(int row, int col)
 {
   if (gameBoard[row][col] == nullptr)  //if the board spot is unoccupied, make an Ant
