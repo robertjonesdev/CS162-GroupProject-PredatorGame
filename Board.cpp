@@ -15,7 +15,16 @@
 using std::cout;
 using std::endl;
 
+
 //Constructors and Deconstructor
+/*********************************************************************
+** Default Constructor
+** The default constructor (can be changed) creates a 2-D Array of
+** Pointers to Critter Objects. All pointers are initialized to nullpointers
+** representing blanks. Next Doodlebugs are randomly placed on the board,
+** by instantiating Doodlebug objects. Then Ants are randomly placed in the
+** same manner.
+*********************************************************************/
 Board::Board()
 {
     srand(time(NULL));
@@ -48,6 +57,11 @@ Board::Board()
     }
 }
 
+/*********************************************************************
+** Deconstructor
+** Deconstructor deletes all dynamically created objects in the gameBoard Array.
+** Tested with Valgrind 2/2/2019 7:49PM
+*********************************************************************/
 Board::~Board()
 {
     //Deallocate memory for the dynamic arrow.
@@ -65,11 +79,20 @@ Board::~Board()
 }
 
 //Functions
+
+/*********************************************************************
+** runGame()
+**
+*********************************************************************/
 void Board::runGame()
 {
 
 }
 
+/*********************************************************************
+** printBoard()
+** This function prints the board to the console.
+*********************************************************************/
 void Board::printBoard()
 {
     //Top border
@@ -105,19 +128,32 @@ void Board::printBoard()
     cout.fill(' ');
 }
 
+/*********************************************************************
+** addAnt(int, int)
+** This function instantiates an Ant object to the gameBoard array.
+** First it tests whether the space is empty (nullptr). If it is empty
+** it continues and returns true. If the space is not empty, then the
+** function returns false without adding anything to the space.
+*********************************************************************/
 bool Board::addAnt(int row, int col)
 {
-  if (gameBoard[row][col] == nullptr)
-  {
-      gameBoard[row][col] = new Ant;
-      return true;
-  }
-  else
-  {
-      return false;
-  }
+    if (gameBoard[row][col] == nullptr)
+    {
+        gameBoard[row][col] = new Ant;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
-
+/*********************************************************************
+** addDoodlbug(int, int)
+** This function instantiates a Doodlebug object to the gameBoard array.
+** First it tests whether the space is empty (nullptr). If it is empty
+** it continues and returns true. If the space is not empty, then the
+** function returns false without adding anything to the space.
+*********************************************************************/
 bool Board::addDoodlebug(int row, int col)
 {
     if (gameBoard[row][col] == nullptr)
