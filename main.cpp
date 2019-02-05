@@ -11,6 +11,7 @@ using std::endl;
 int main()
 {
 	int numSteps = 0;
+	int choice = 0;
 
 	srand(time(NULL));
 
@@ -23,8 +24,30 @@ int main()
 	cin >> numSteps;
 	validateInt(numSteps, 1, 5000);
 
-	Board myGame(numSteps);
+	Board myGame;
+	myGame.runGame(numSteps);
 	myGame.printBoard();
+
+    //LB: After the initial simulation is complete, ask the user if they want to continue (while maintaining board state)
+    do {
+	  cout << numSteps << " steps completed. Would you like to continue running the simulation?" << endl;
+	  cout << "1. Yes" << endl;
+	  cout << "2. No" << endl << endl;
+	  cin >> choice;
+	  validateInt(choice, 1, 2);
+
+	  if (choice == 1) {
+	  	numSteps = 0;
+
+	  	cout << "Please enter the number of steps to run to continue the simulation (1-5000): " << endl << endl;
+	  	cin >> numSteps;
+	  	validateInt(numSteps, 1, 5000);
+
+	    myGame.runGame(numSteps);
+	    myGame.printBoard();
+	  }
+
+    } while (choice !=2);
 
 	return 0;
 }
