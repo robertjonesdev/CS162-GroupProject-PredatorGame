@@ -35,5 +35,6 @@ class Board
         bool addDoodlebug(int, int);
         void increaseAge();
         void critterAttach();
+		void breedDoodlebug();
 };
 #endif

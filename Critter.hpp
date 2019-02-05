@@ -18,6 +18,7 @@ class Critter {
     bool isAnt;
     bool isDoodlebug;
 
+
   public:
     Critter();  //AW: default constructor, probably unused.
     Critter(int, int);
@@ -29,6 +30,7 @@ class Critter {
     virtual bool getIsAnt();
     virtual void breed() = 0; //pure virtual function which will be overridden in child classes
     virtual void move(Critter*** gameBoard) = 0; //pure virtual function which will be overridden in child classes
+	
 };
 
 #endif

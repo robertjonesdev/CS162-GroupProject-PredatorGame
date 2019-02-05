@@ -192,3 +192,14 @@ void Board::critterAttach()
 {
 
 }
+
+
+void Board::breedDoodlebug() {
+	if (gameBoard[row][col]->breed(Critter*** gameBoard[row]col])) {
+		addDoodlebug(gameBoard->getTemp_x(), gameBoard->getTemp_Y());
+	}
+	else{
+
+	}
+		
+}

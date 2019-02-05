@@ -13,15 +13,19 @@
 class Doodlebug: public Critter {
   private:
     int starvingCounter;
+	int tempX, tempY;//used to return the location of a new doodlebug for breeding
 
   public:
     Doodlebug(int, int);
     int getStarvingCounter();
     void setStarvingCounter(int);
-    void breed();
+    bool breed(Critter*** gameBoard); // this is a bool so that if the spots are occupied the temp values are returned
     void move(Critter*** gameBoard);
     bool getIsDoodlebug();
     bool getIsAnt();
+	int getTemp_X();
+	int getTemp_Y();
+	
 };
 
 #endif

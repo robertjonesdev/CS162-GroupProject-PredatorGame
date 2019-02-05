@@ -28,61 +28,73 @@ void Doodlebug::setStarvingCounter(int newCounter) {
 }
 
 //Checks that breedingCounter is >= 8 and that there is an empty ajacent space. If so, creates new Doodlebug
-void Doodlebug::breed() {
+bool Doodlebug::breed(Critter*** gameBoard) {
+	int upCount=0, rightCount=0, downCount=0, leftCount=0; //to end the loop if no available space
 	
 	if (getBreedingCounter() >= 8) {
-		int loopEnd = 0;//makes sure each option is tested before exiting
-		while (loopEnd != 5) { //loop that cycles through untill an empty space is found 
+		
+		while (upCount == 0 && rightCount == 0 && downCount == 0 && leftCount ==0) { //loop that cycles through untill an empty space is found 
 			int moveDirection = rand() % 4;
 			switch (moveDirection)
 			{
-			case UP:    std::cout << "Trying to move up!" << std::endl;  //for testing, remove later
+			case UP:    std::cout << "Trying to breed!" << std::endl;  //for testing, remove later
 				if (this->row != 0) {  //if we're in the top row, do nothing.
 					if (gameBoard[this->row - 1][this->col] == nullptr) {  //if the space is unoccupied breed
-						gameBoard[this->row - 1][this->col] = this;
-						gameBoard[this->row][this->col] = nullptr;
-						this->row--;
-						loopEnd = 5; //end the loop
+						tempX = (row - 1);
+						tempY = col;
+						return true;
 					}
+				}
+				else {
+					upCount = 1;
 				}
 				 break;
 
 			case RIGHT: std::cout << "Trying to move right!" << std::endl;  //for testing, remove later
 				if (this->col != MAX_COLS - 1) {  //if we're in the right column, do nothing.
 					if (gameBoard[this->row][this->col + 1] == nullptr) {  //if the space is unoccupied breed
-						gameBoard[this->row][this->col + 1] = this;
-						gameBoard[this->row][this->col] = nullptr;
-						this->col++;
-						loopEnd = 5; // end loop
+						tempX = row;
+						tempY = (col + 1);	
+						return true;
 					}
+				}
+				else {
+					rightCount = 1;
 				}
 				 break;
 
 			case DOWN:  std::cout << "Trying to move down!" << std::endl;  //for testing, remove later
 				if (this->row != MAX_ROWS - 1) {  //if we're in the bottom row, do nothing.
 					if (gameBoard[this->row + 1][this->col] == nullptr) {  //if the space is unoccupied breed
-						gameBoard[this->row + 1][this->col] = this;
-						gameBoard[this->row][this->col] = nullptr;
-						this->row++;
-						loopEnd = 5; //endloop
+						tempX = (row + 1);
+						tempY = col;
+						return true;
 					}
+				}
+				else {
+					downCount = 1;
 				}
 				 break;
 
 			case LEFT:  std::cout << "Trying to move left!" << std::endl;  //for testing, remove later
 				if (this->col != 0) {  //if we're in the left column, do nothing.
 					if (gameBoard[this->row][this->col - 1] == nullptr) {  //if the space is unoccupied breed
-						gameBoard[this->row][this->col - 1] = this;
-						gameBoard[this->row][this->col] = nullptr;
-						this->col--;
-						loopEnd = 5; //end loop
+						tempX = row;
+						tempY = (col - 1);	
+						return true;
 					}
+				}
+				else {
+					leftCount = 1;
 				}
 					break;
 				
 				}
 			}
 		}
+	else if(upCount == 1 && rightCount == 1 && downCount == 1 && leftCount == 1){
+		std::cout << "Cannot breed, no open spots" << std::endl;
+		return false; //prevents board from getting temp variables. 
 
 	}
 }
@@ -159,4 +171,14 @@ bool Doodlebug::getIsAnt() {
 //Returns true if doodlebug, otherwise false
 bool Doodlebug::getIsDoodlebug() {
   return isDoodlebug;
+}
+
+
+
+int Doodlebug::getTemp_X() {
+	return tempX;
+}
+
+int Doodlebug::getTemp_Y() {
+	return tempY;
 }
