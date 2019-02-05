@@ -26,6 +26,12 @@ void Ant::breed(Critter*** gameBoard) {
   }
 }
 
+//Increments breeding counter by 1
+void Ant::incrementCounters() {
+  ++breedingCounter;
+}
+
+
 //Moves to an empty adjacent space. If the first move fails, the Ant does not move
 void Ant::move(Critter*** gameBoard) {
 

@@ -85,7 +85,30 @@ void Board::runGame(int numSteps)
 {
     while(numSteps > 0)
     {
-        for(int i = 0; i < MAX_ROWS; i++)
+        for(int i = 0; i < MAX_ROWS; i++){//doodlebugs move first
+            for(int j = 0; j < MAX_COLS; j++)  {//each move, iterate through the board
+                if(gameBoard[i][j] == nullptr) //we need to keep this test, because if we don't skip the nullptrs we try to deference them and that's bad
+                {
+                    cout << "Nothing here" << endl;  //for testing, remove later
+                }
+                else if(gameBoard[i][j]->getIsDoodlebug())
+                {
+                    cout << "This is a doodlebug" << endl;  //for testing, remove later
+                    gameBoard[i][j]->incrementCounters();
+                    cout << "One" << endl;
+                    gameBoard[i][j]->move(gameBoard);
+                    cout << "Two" << endl;
+                    gameBoard[i][j]->breed(gameBoard);
+                    cout << "Three" << endl;
+                    gameBoard[i][j]->starve(gameBoard);
+                    cout << "Four" << endl;
+                }
+            }
+        }
+        cout << "Finished doodlebug move" << endl;
+        printBoard();
+
+        for(int i = 0; i < MAX_ROWS; i++) //ants move second
         {
             for(int j = 0; j < MAX_COLS; j++)  //each move, iterate through the board
             {
@@ -96,13 +119,11 @@ void Board::runGame(int numSteps)
                 else if(gameBoard[i][j]->getIsAnt())
                 {
                     cout << "This is an ant" << endl;  //for testing, remove later
+                    gameBoard[i][j]->incrementCounters();
                     gameBoard[i][j]->move(gameBoard);
+                    //need to implement breed here
                 }
-                else if(gameBoard[i][j]->getIsDoodlebug())
-                {
-                    cout << "This is a doodlebug" << endl;  //for testing, remove later
-                    gameBoard[i][j]->breed(gameBoard);
-                }
+
             }
             cout << "Finished row " << i << endl;
             printBoard();
