@@ -13,6 +13,8 @@
 
 //Ant constructor. Takes an int for the x axis and an int for the y axis
 Ant::Ant(int row, int col): Critter(row, col) {
+  this->row = row;
+  this->col = col;
   isAnt = true;
   isDoodlebug = false;
 }
@@ -29,7 +31,7 @@ void Ant::move(Critter*** gameBoard) {
 
   //AW: For reference: enum Direction {UP=0, RIGHT=1, DOWN=2, LEFT=3}
   int moveDirection = rand() % 4;  //0, 1, 2, or 3.
-  
+
   switch(moveDirection)
   {
     case UP:    std::cout << "Trying to move up!" << std::endl;  //for testing, remove later
@@ -37,7 +39,7 @@ void Ant::move(Critter*** gameBoard) {
                   if(gameBoard[this->row - 1][this->col] == nullptr){  //if the space is unoccupied, move
                     gameBoard[this->row - 1][this->col] = this;
                     gameBoard[this->row][this->col] = nullptr;
-                    this->row--;  
+                    this->row--;
                   }
                 } break;
 
@@ -57,7 +59,7 @@ void Ant::move(Critter*** gameBoard) {
                     gameBoard[this->row][this->col] = nullptr;
                     this->row++;
                   }
-                } break; 
+                } break;
 
     case LEFT:  std::cout << "Trying to move left!" << std::endl;  //for testing, remove later
                 if(this->col != 0){  //if we're in the left column, do nothing.
