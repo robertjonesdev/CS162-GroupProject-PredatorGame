@@ -17,13 +17,10 @@ using std::endl;
 
 
 //Constructors and Deconstructor
-Board::Board() {}; //AW: unused default constructor
-Board::Board(int numSteps, int rows, int cols) {}; //AW: constructor for extra credit, blank for now
+Board::Board(int rows, int cols) {}; //AW: constructor for extra credit, blank for now
 
-Board::Board(int numSteps)
+Board::Board()
 {
-    //AW: set the number of steps to run
-    this->numSteps = numSteps;
     
     //instantiate the game board
     gameBoard = new Critter**[MAX_ROWS];
@@ -55,7 +52,6 @@ Board::Board(int numSteps)
                                                     //if unsuccessful pick two more random row/col until success
     }
     printBoard();
-    runGame();
   
 }
 
@@ -85,7 +81,7 @@ Board::~Board()
 ** runGame()
 **
 *********************************************************************/
-void Board::runGame()
+void Board::runGame(int numSteps)
 {
     while(numSteps > 0)
     {

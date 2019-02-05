@@ -18,18 +18,16 @@ const int STARTING_DOODLEBUGS = 5;
 class Board
 {
     private:
-        int numSteps;
         Critter*** gameBoard;
 
     public:
         //Constructors and Deconstructor
         Board();
-        Board(int numSteps);  //AW: takes an int to set numSteps
-        Board(int numSteps, int rows, int cols);  //AW: constructor for extra credit, blank for now
+        Board(int rows, int cols);  //AW: constructor for extra credit, blank for now
         virtual ~Board();
 
         //Functions
-        void runGame();
+        void runGame(int); //Takes an int to set number of steps
         void printBoard();
         bool addAnt(int, int);
         bool addDoodlebug(int, int);
