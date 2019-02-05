@@ -12,7 +12,7 @@
 //For reference: enum class Direction {UP=0, RIGHT=1, DOWN=2, LEFT=3}
 
 
-//Doodlebug constructor. Takes an int for the x axis and an int for the y axis
+//Doodlebug constructor. Takes an int for the row and an int for the column
 Doodlebug::Doodlebug(int x, int y): Critter(row, col) {
   starvingCounter = 0;
   isDoodlebug = true;
@@ -31,59 +31,71 @@ void Doodlebug::setStarvingCounter(int newCounter) {
 
 //Checks that breedingCounter is >= 8 and that there is an empty ajacent space. If so, creates new Doodlebug
 void Doodlebug::breed(Critter*** gameBoard) {
-	
-	if (getBreedingCounter() >= 8) {
-		int loopEnd = 0;//makes sure each option is tested before exiting
-		while (loopEnd != 5) { //loop that cycles through untill an empty space is found
-			int moveDirection = rand() % 4;
-			switch (moveDirection)
+	if (getBreedingCounter() >= 8)
+	{
+		bool bred = false;
+
+		while (!bred)  //loop until bred
+		{
+			bool upCheck, leftCheck, downCheck, rightCheck;  //bools to track whether all adjacent spaces have been checked. 
+			upCheck = leftCheck = downCheck = rightCheck = false;  //false = not checked, true = checked
+
+			while(!(upCheck == true && downCheck == true && leftCheck == true && rightCheck == true))  //loop until all are true (i.e. all have been checked);
 			{
-			case UP:    std::cout << "Trying to move up!" << std::endl;  //for testing, remove later
-				        if (this->row != 0) {  //if we're in the top row, do nothing.
-					        if (gameBoard[this->row - 1][this->col] == nullptr) {  //if the space is unoccupied breed
-						        gameBoard[this->row - 1][this->col] = this;
-						        gameBoard[this->row][this->col] = nullptr;
-						        this->row--;
-						        loopEnd = 5; //end the loop
-					        }
-				        }
-				        break;
+				int breedDirection = rand() % 4;
 
-			case RIGHT: std::cout << "Trying to move right!" << std::endl;  //for testing, remove later
-        				if (this->col != MAX_COLS - 1) {  //if we're in the right column, do nothing.
-        					if (gameBoard[this->row][this->col + 1] == nullptr) {  //if the space is unoccupied breed
-        						gameBoard[this->row][this->col + 1] = this;
-        						gameBoard[this->row][this->col] = nullptr;
-        						this->col++;
-        						loopEnd = 5; // end loop
-        					}
-        				}
-        				break;
+				switch (breedDirection)
+				{
+					case UP:    std::cout << "Trying to breed up!" << std::endl;  //for testing, remove later
+								upCheck = true;
+								if (this->row != 0) {  //if we're in the top row, do nothing.
+									if (gameBoard[this->row - 1][this->col] == nullptr) {  //if the space is unoccupied breed
+										new Doodlebug(this->row - 1, this->col);  //make a new doodlebug there
+										this->setBreedingCounter(0);  //reset breeding counter
+										bred = true;  //exit outer loop condition
+										upCheck = leftCheck = downCheck = rightCheck = true; //force exit of inner loop
+									}
+								} break;
 
-			case DOWN:  std::cout << "Trying to move down!" << std::endl;  //for testing, remove later
-        				if (this->row != MAX_ROWS - 1) {  //if we're in the bottom row, do nothing.
-        					if (gameBoard[this->row + 1][this->col] == nullptr) {  //if the space is unoccupied breed
-        						gameBoard[this->row + 1][this->col] = this;
-        						gameBoard[this->row][this->col] = nullptr;
-        						this->row++;
-        						loopEnd = 5; //endloop
-        					}
-        				}
-        				break;
+					case RIGHT: std::cout << "Trying to breed right!" << std::endl;  //for testing, remove later
+								rightCheck = true;
+								if (this->col != MAX_COLS - 1) {  //if we're in the right column, do nothing.
+									if (gameBoard[this->row][this->col + 1] == nullptr) {  //if the space is unoccupied breed
+										new Doodlebug(this->row, this->col + 1);  //make a new doodlebug there
+										this->setBreedingCounter(0);  //reset breeding counter
+										bred = true;  //exit outer loop condition
+										upCheck = leftCheck = downCheck = rightCheck = true; //force exit of inner loop
+									}
+								} break;
 
-			case LEFT:  std::cout << "Trying to move left!" << std::endl;  //for testing, remove later
-				if (this->col != 0) {  //if we're in the left column, do nothing.
-					if (gameBoard[this->row][this->col - 1] == nullptr) {  //if the space is unoccupied breed
-						gameBoard[this->row][this->col - 1] = this;
-						gameBoard[this->row][this->col] = nullptr;
-						this->col--;
-						loopEnd = 5; //end loop
-					}
-				}
-					break;
-				
-				
+					case DOWN:  std::cout << "Trying to breed down!" << std::endl;  //for testing, remove later
+								downCheck = true;
+								if (this->row != MAX_ROWS - 1) {  //if we're in the bottom row, do nothing.
+									if (gameBoard[this->row + 1][this->col] == nullptr) {  //if the space is unoccupied breed
+										new Doodlebug(this->row + 1, this->col);  //make a new doodlebug there
+										this->setBreedingCounter(0);  //reset breeding counter
+										bred = true;  //exit outer loop condition
+										upCheck = leftCheck = downCheck = rightCheck = true; //force exit of inner loop
+									}
+								} break;
+
+					case LEFT:  std::cout << "Trying to breed left!" << std::endl;  //for testing, remove later
+								leftCheck = true;
+								if (this->col != 0) {  //if we're in the left column, do nothing.
+									if (gameBoard[this->row][this->col - 1] == nullptr) {  //if the space is unoccupied breed
+										new Doodlebug(this->row, this->col - 1);  //make a new doodlebug there
+										this->setBreedingCounter(0);  //reset breeding counter
+										bred = true;  //exit outer loop condition
+										upCheck = leftCheck = downCheck = rightCheck = true; //force exit of inner loop
+									}
+								}
+				}		
 			}
+			if(!bred) //if doodlebug hasn't bred after checking all 4 adjacent squares
+			{
+				std::cout << "No space to breed :(" << std::endl;
+				bred = true; //break out of loop, but don't reset BreedingCounter.
+			}	
 		}
 	}
 }

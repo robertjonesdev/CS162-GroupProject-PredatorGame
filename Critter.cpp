@@ -17,7 +17,7 @@ Critter::Critter()
   isDoodlebug = false;
 };
 
-//Critter constructor. Takes an int for the x axis and an int for the y axis
+//Critter constructor. Takes an int for the row and an int for the column
 //and sets breedingCounter to zero to start.
 Critter::Critter(int row, int col) {
   this->row = row;
