@@ -98,6 +98,11 @@ void Board::runGame(int numSteps)
                     cout << "This is an ant" << endl;  //for testing, remove later
                     gameBoard[i][j]->move(gameBoard);
                 }
+                else if(gameBoard[i][j]->getIsDoodlebug())
+                {
+                    cout << "This is a doodlebug" << endl;  //for testing, remove later
+                    gameBoard[i][j]->breed(gameBoard);
+                }
             }
             cout << "Finished row " << i << endl;
             printBoard();

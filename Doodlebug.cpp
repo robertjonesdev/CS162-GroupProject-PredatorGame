@@ -13,7 +13,9 @@
 
 
 //Doodlebug constructor. Takes an int for the row and an int for the column
-Doodlebug::Doodlebug(int x, int y): Critter(row, col) {
+Doodlebug::Doodlebug(int row, int col): Critter(row, col) {
+  this->row = row;
+  this->col = col;
   starvingCounter = 0;
   isDoodlebug = true;
   isAnt = false;
@@ -29,9 +31,11 @@ void Doodlebug::setStarvingCounter(int newCounter) {
   starvingCounter = newCounter;
 }
 
-//Checks that breedingCounter is >= 8 and that there is an empty ajacent space. If so, creates new Doodlebug
+//Checks that breedingCounter is >= 8 and that there is an empty adjacent space. If so, creates new Doodlebug
 void Doodlebug::breed(Critter*** gameBoard) {
-	if (getBreedingCounter() >= 8)
+	if (this->row == 0)
+		std::cout << "Hello\n";
+	if (getBreedingCounter() >= 8) //change this to 0 to test breeding function
 	{
 		bool bred = false;
 
@@ -43,14 +47,14 @@ void Doodlebug::breed(Critter*** gameBoard) {
 			while(!(upCheck == true && downCheck == true && leftCheck == true && rightCheck == true))  //loop until all are true (i.e. all have been checked);
 			{
 				int breedDirection = rand() % 4;
-
+				
 				switch (breedDirection)
 				{
 					case UP:    std::cout << "Trying to breed up!" << std::endl;  //for testing, remove later
 								upCheck = true;
 								if (this->row != 0) {  //if we're in the top row, do nothing.
 									if (gameBoard[this->row - 1][this->col] == nullptr) {  //if the space is unoccupied breed
-										new Doodlebug(this->row - 1, this->col);  //make a new doodlebug there
+										gameBoard[this->row - 1][this->col] = new Doodlebug(this->row - 1, this->col);  //make a new doodlebug there
 										this->setBreedingCounter(0);  //reset breeding counter
 										bred = true;  //exit outer loop condition
 										upCheck = leftCheck = downCheck = rightCheck = true; //force exit of inner loop
@@ -61,7 +65,7 @@ void Doodlebug::breed(Critter*** gameBoard) {
 								rightCheck = true;
 								if (this->col != MAX_COLS - 1) {  //if we're in the right column, do nothing.
 									if (gameBoard[this->row][this->col + 1] == nullptr) {  //if the space is unoccupied breed
-										new Doodlebug(this->row, this->col + 1);  //make a new doodlebug there
+										gameBoard[this->row][this->col + 1] = new Doodlebug(this->row, this->col + 1);  //make a new doodlebug there
 										this->setBreedingCounter(0);  //reset breeding counter
 										bred = true;  //exit outer loop condition
 										upCheck = leftCheck = downCheck = rightCheck = true; //force exit of inner loop
@@ -71,8 +75,8 @@ void Doodlebug::breed(Critter*** gameBoard) {
 					case DOWN:  std::cout << "Trying to breed down!" << std::endl;  //for testing, remove later
 								downCheck = true;
 								if (this->row != MAX_ROWS - 1) {  //if we're in the bottom row, do nothing.
-									if (gameBoard[this->row + 1][this->col] == nullptr) {  //if the space is unoccupied breed
-										new Doodlebug(this->row + 1, this->col);  //make a new doodlebug there
+									if(gameBoard[this->row+1][this->col] == nullptr) {  //if the space is unoccupied breed
+										gameBoard[this->row + 1][this->col] = new Doodlebug(this->row + 1, this->col);  //make a new doodlebug there
 										this->setBreedingCounter(0);  //reset breeding counter
 										bred = true;  //exit outer loop condition
 										upCheck = leftCheck = downCheck = rightCheck = true; //force exit of inner loop
@@ -83,7 +87,7 @@ void Doodlebug::breed(Critter*** gameBoard) {
 								leftCheck = true;
 								if (this->col != 0) {  //if we're in the left column, do nothing.
 									if (gameBoard[this->row][this->col - 1] == nullptr) {  //if the space is unoccupied breed
-										new Doodlebug(this->row, this->col - 1);  //make a new doodlebug there
+										gameBoard[this->row][this->col - 1] = new Doodlebug(this->row, this->col - 1);  //make a new doodlebug there
 										this->setBreedingCounter(0);  //reset breeding counter
 										bred = true;  //exit outer loop condition
 										upCheck = leftCheck = downCheck = rightCheck = true; //force exit of inner loop
