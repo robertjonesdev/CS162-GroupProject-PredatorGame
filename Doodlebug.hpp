@@ -19,7 +19,7 @@ class Doodlebug: public Critter {
     Doodlebug(int, int);
     int getStarvingCounter();
     void setStarvingCounter(int);
-    bool breed(Critter*** gameBoard); // this is a bool so that if the spots are occupied the temp values are returned
+    bool breed(Critter*** gameBoard); // this is a bool so that if the spots are occupied the temp values are NOT returned
     void move(Critter*** gameBoard);
     bool getIsDoodlebug();
     bool getIsAnt();
