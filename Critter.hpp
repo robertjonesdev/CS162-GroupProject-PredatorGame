@@ -9,6 +9,7 @@
 #ifndef CRITTER_HPP
 #define CRITTER_HPP
 
+
 class Critter {
   protected:
     int row;
@@ -27,7 +28,7 @@ class Critter {
     void setBreedingCounter(int);
     virtual bool getIsDoodlebug();
     virtual bool getIsAnt();
-    virtual void breed() = 0; //pure virtual function which will be overridden in child classes
+    virtual void breed(Critter*** gameBoard) = 0; //pure virtual function which will be overridden in child classes
     virtual void move(Critter*** gameBoard) = 0; //pure virtual function which will be overridden in child classes
 };
 

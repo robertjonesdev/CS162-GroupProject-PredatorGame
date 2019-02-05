@@ -8,6 +8,7 @@
 
 #ifndef DOODLEBUG_HPP
 #define DOODLEBUG_HPP
+
 #include "Critter.hpp"
 
 class Doodlebug: public Critter {
@@ -18,7 +19,7 @@ class Doodlebug: public Critter {
     Doodlebug(int, int);
     int getStarvingCounter();
     void setStarvingCounter(int);
-    void breed();
+    void breed(Critter*** gameBoard);
     void move(Critter*** gameBoard);
     bool getIsDoodlebug();
     bool getIsAnt();
