@@ -92,7 +92,7 @@ bool Doodlebug::breed(Critter*** gameBoard) {
 				}
 			}
 		}
-	else if(upCount == 1 && rightCount == 1 && downCount == 1 && leftCount == 1){
+	if(upCount == 1 && rightCount == 1 && downCount == 1 && leftCount == 1){
 		std::cout << "Cannot breed, no open spots" << std::endl;
 		return false; //prevents board from getting temp variables. 
 
