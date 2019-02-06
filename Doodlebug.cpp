@@ -31,7 +31,7 @@ void Doodlebug::setStarvingCounter(int newCounter) {
 
 //Checks that breedingCounter is >= 8 and that there is an empty ajacent space. If so, creates new Doodlebug
 void Doodlebug::breed(Critter*** gameBoard) {
-	
+
 	if (getBreedingCounter() >= 8) {
 		int loopEnd = 0;//makes sure each option is tested before exiting
 		while (loopEnd != 5) { //loop that cycles through untill an empty space is found
@@ -72,17 +72,15 @@ void Doodlebug::breed(Critter*** gameBoard) {
         				break;
 
 			case LEFT:  std::cout << "Trying to move left!" << std::endl;  //for testing, remove later
-				if (this->col != 0) {  //if we're in the left column, do nothing.
-					if (gameBoard[this->row][this->col - 1] == nullptr) {  //if the space is unoccupied breed
-						gameBoard[this->row][this->col - 1] = this;
-						gameBoard[this->row][this->col] = nullptr;
-						this->col--;
-						loopEnd = 5; //end loop
-					}
-				}
-					break;
-				
-				
+        				if (this->col != 0) {  //if we're in the left column, do nothing.
+        					if (gameBoard[this->row][this->col - 1] == nullptr) {  //if the space is unoccupied breed
+        						gameBoard[this->row][this->col - 1] = this;
+        						gameBoard[this->row][this->col] = nullptr;
+        						this->col--;
+        						loopEnd = 5; //end loop
+        					}
+        				}
+					    break;
 			}
 		}
 	}
@@ -92,15 +90,17 @@ void Doodlebug::breed(Critter*** gameBoard) {
 //If surrounded by Doodlebugs, the Doodlebug does not move
 void Doodlebug::move(Critter*** gameBoard) {
     int moveDirection = 0;
-	//Check for ants in adjacent cells
-	//If ants in adjacent cells move there. 
+    //ToDo:Insert edge-case guards.
 
+	//Check for ants in adjacent cells
+	//If ants in adjacent cells move there.
 	if (gameBoard[this->row - 1][this->col]->getIsAnt()) {
 		//Delete Ant object at position to simulate eating
 		delete gameBoard[this->row - 1][this->col];
 		//Replace with doodlebug
 		gameBoard[this->row - 1][this->col] = this;
 		gameBoard[this->row][this->col] = nullptr;
+        this->row--;
 	}
 	else if (gameBoard[this->row + 1][this->col]->getIsAnt()) {
 		//Delete Ant object at position to simulate eating
@@ -108,6 +108,7 @@ void Doodlebug::move(Critter*** gameBoard) {
 		//Replace with doodlebug
 		gameBoard[this->row + 1][this->col] = this;
 		gameBoard[this->row][this->col] = nullptr;
+        this->row++;
 	}
 	else if (gameBoard[this->row][this->col - 1]->getIsAnt()) {
 		//Delete Ant object at position to simulate eating
@@ -115,6 +116,7 @@ void Doodlebug::move(Critter*** gameBoard) {
 		//Replace with doodlebug
 		gameBoard[this->row][this->col - 1] = this;
 		gameBoard[this->row][this->col] = nullptr;
+        this->col--;
 	}
 	else if (gameBoard[this->row][this->col + 1]->getIsAnt()) {
 		//Delete Ant object at position to simulate eating
@@ -122,10 +124,11 @@ void Doodlebug::move(Critter*** gameBoard) {
 		//Replace with doodlebug
 		gameBoard[this->row][this->col + 1] = this;
 		gameBoard[this->row][this->col] = nullptr;
+        this->col++;
 	}
 	else {
 		int moveDirection = rand() % 4; //spot to move if no ants in adjacent cells
-	
+
 		switch (moveDirection)
 		{
 		case UP:    std::cout << "Trying to move up!" << std::endl;  //for testing, remove later
@@ -164,7 +167,7 @@ void Doodlebug::move(Critter*** gameBoard) {
 				}
 			}
 		}
-	} 
+	}
 }
 
 //Returns true if ant, otherwise false
