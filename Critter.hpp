@@ -15,6 +15,7 @@ class Critter {
     int row;
     int col;
     int breedingCounter;
+    bool hasMovedToday;
     enum Direction {UP, RIGHT, DOWN, LEFT};  //AW: used for movement
     bool isAnt;
     bool isDoodlebug;
