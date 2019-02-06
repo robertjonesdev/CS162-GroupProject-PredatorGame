@@ -96,18 +96,30 @@ void Doodlebug::move(Critter*** gameBoard) {
 	//If ants in adjacent cells move there. 
 
 	if (gameBoard[this->row - 1][this->col]->getIsAnt()) {
+		//Delete Ant object at position to simulate eating
+		delete gameBoard[this->row - 1][this->col];
+		//Replace with doodlebug
 		gameBoard[this->row - 1][this->col] = this;
 		gameBoard[this->row][this->col] = nullptr;
 	}
 	else if (gameBoard[this->row + 1][this->col]->getIsAnt()) {
+		//Delete Ant object at position to simulate eating
+		delete gameBoard[this->row +1][this->col];
+		//Replace with doodlebug
 		gameBoard[this->row + 1][this->col] = this;
 		gameBoard[this->row][this->col] = nullptr;
 	}
 	else if (gameBoard[this->row][this->col - 1]->getIsAnt()) {
+		//Delete Ant object at position to simulate eating
+		delete gameBoard[this->row][this->col - 1];
+		//Replace with doodlebug
 		gameBoard[this->row][this->col - 1] = this;
 		gameBoard[this->row][this->col] = nullptr;
 	}
 	else if (gameBoard[this->row][this->col + 1]->getIsAnt()) {
+		//Delete Ant object at position to simulate eating
+		delete gameBoard[this->row][this->col + 1];
+		//Replace with doodlebug
 		gameBoard[this->row][this->col + 1] = this;
 		gameBoard[this->row][this->col] = nullptr;
 	}
