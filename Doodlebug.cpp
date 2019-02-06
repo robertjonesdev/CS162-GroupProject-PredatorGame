@@ -21,21 +21,11 @@ Doodlebug::Doodlebug(int row, int col): Critter(row, col) {
   isAnt = false;
 }
 
-//Returns the starving counter
-int Doodlebug::getStarvingCounter() {
-  return starvingCounter;
-}
-
 //Increments breeding counter by 1
 void Doodlebug::incrementCounters() {
   ++breedingCounter;
   ++starvingCounter;
   hasMovedToday = false;
-}
-
-//Takes an int to set the starving counter (used to increment and reset counter)
-void Doodlebug::setStarvingCounter(int newCounter) {
-  starvingCounter = newCounter;
 }
 
 //Removes doodlebug if starvingCounter >= 3
@@ -53,7 +43,7 @@ bool Doodlebug::starve()
 //Checks that breedingCounter is >= 8 and that there is an empty adjacent space. If so, creates new Doodlebug
 void Doodlebug::breed(Critter*** gameBoard) {
     std::cout << "inside breed" << std::endl;
-	if (this->getBreedingCounter() >= 8) //change this to 0 to test breeding function
+	if (this->breedingCounter >= 8) //change this to 0 to test breeding function
 	{
         std::cout << "inside if1" << std::endl;
 		bool bred = false;
@@ -75,7 +65,7 @@ void Doodlebug::breed(Critter*** gameBoard) {
 								if (this->row != 0) {  //if we're in the top row, do nothing.
 									if (gameBoard[this->row - 1][this->col] == nullptr) {  //if the space is unoccupied breed
 										gameBoard[this->row - 1][this->col] = new Doodlebug(this->row - 1, this->col);  //make a new doodlebug there
-										this->setBreedingCounter(0);  //reset breeding counter
+										this->breedingCounter = 0;  //reset breeding counter
 										bred = true;  //exit outer loop condition
 										upCheck = leftCheck = downCheck = rightCheck = true; //force exit of inner loop
 									}
@@ -86,7 +76,7 @@ void Doodlebug::breed(Critter*** gameBoard) {
 								if (this->col != MAX_COLS - 1) {  //if we're in the right column, do nothing.
 									if (gameBoard[this->row][this->col + 1] == nullptr) {  //if the space is unoccupied breed
 										gameBoard[this->row][this->col + 1] = new Doodlebug(this->row, this->col + 1);  //make a new doodlebug there
-										this->setBreedingCounter(0);  //reset breeding counter
+										this->breedingCounter = 0;  //reset breeding counter
 										bred = true;  //exit outer loop condition
 										upCheck = leftCheck = downCheck = rightCheck = true; //force exit of inner loop
 									}
@@ -97,7 +87,7 @@ void Doodlebug::breed(Critter*** gameBoard) {
 								if (this->row != MAX_ROWS - 1) {  //if we're in the bottom row, do nothing.
 									if(gameBoard[this->row + 1][this->col] == nullptr) {  //if the space is unoccupied breed
 										gameBoard[this->row + 1][this->col] = new Doodlebug(this->row + 1, this->col);  //make a new doodlebug there
-										this->setBreedingCounter(0);  //reset breeding counter
+										this->breedingCounter = 0;  //reset breeding counter
 										bred = true;  //exit outer loop condition
 										upCheck = leftCheck = downCheck = rightCheck = true; //force exit of inner loop
 									}
@@ -108,7 +98,7 @@ void Doodlebug::breed(Critter*** gameBoard) {
 								if (this->col != 0) {  //if we're in the left column, do nothing.
 									if (gameBoard[this->row][this->col - 1] == nullptr) {  //if the space is unoccupied breed
 										gameBoard[this->row][this->col - 1] = new Doodlebug(this->row, this->col - 1);  //make a new doodlebug there
-										this->setBreedingCounter(0);  //reset breeding counter
+										this->breedingCounter = 0;  //reset breeding counter
 										bred = true;  //exit outer loop condition
 										upCheck = leftCheck = downCheck = rightCheck = true; //force exit of inner loop
 									}
