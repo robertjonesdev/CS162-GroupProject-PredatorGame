@@ -11,21 +11,20 @@
 
 //For reference: enum class Direction {UP=0, RIGHT=1, DOWN=2, LEFT=3}
 
-
 //Doodlebug constructor. Takes an int for the row and an int for the column
 Doodlebug::Doodlebug(int row, int col): Critter(row, col) {
-  this->row = row;
-  this->col = col;
-  starvingCounter = 0;
-  isDoodlebug = true;
-  isAnt = false;
+    this->row = row;
+    this->col = col;
+    starvingCounter = 0;
+    isDoodlebug = true;
+    isAnt = false;
 }
 
 //Increments breeding counter by 1
 void Doodlebug::incrementCounters() {
-  ++breedingCounter;
-  ++starvingCounter;
-  hasMovedToday = false;
+    ++breedingCounter;
+    ++starvingCounter;
+    hasMovedToday = false;
 }
 
 //Removes doodlebug if starvingCounter >= 3
@@ -254,10 +253,10 @@ void Doodlebug::move(Critter*** gameBoard) {
 
 //Returns true if ant, otherwise false
 bool Doodlebug::getIsAnt() {
-  return isAnt;
+    return isAnt;
 }
 
 //Returns true if doodlebug, otherwise false
 bool Doodlebug::getIsDoodlebug() {
-  return isDoodlebug;
+    return isDoodlebug;
 }

@@ -13,10 +13,10 @@
 
 //Ant constructor. Takes an int for the x axis and an int for the y axis
 Ant::Ant(int row, int col): Critter(row, col) {
-  this->row = row;
-  this->col = col;
-  isAnt = true;
-  isDoodlebug = false;
+    this->row = row;
+    this->col = col;
+    isAnt = true;
+    isDoodlebug = false;
 }
 
 //Checks that breedingCounter is >= 3 and that there is an empty ajacent space. If so, creates new Ant
@@ -105,8 +105,8 @@ void Ant::breed(Critter*** gameBoard) {
 
 //Increments breeding counter by 1
 void Ant::incrementCounters() {
-      ++breedingCounter;
-      hasMovedToday = false;
+    ++breedingCounter;
+    hasMovedToday = false;
 }
 
 
@@ -182,10 +182,10 @@ void Ant::move(Critter*** gameBoard) {
 
 //Returns true if ant, otherwise false
 bool Ant::getIsAnt() {
-  return isAnt;
+    return isAnt;
 }
 
 //Returns true if doodlebug, otherwise false
 bool Ant::getIsDoodlebug() {
-  return isDoodlebug;
+    return isDoodlebug;
 }

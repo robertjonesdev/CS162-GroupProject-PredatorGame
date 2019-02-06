@@ -218,15 +218,15 @@ void Board::printBoard()
 *********************************************************************/
 bool Board::addAnt(int row, int col)
 {
-  if (gameBoard[row][col] == nullptr)  //if the board spot is unoccupied, make an Ant
-  {
-      gameBoard[row][col] = new Ant(row, col);   //AW: added (row, col) to Ant constructor call
-      return true;
-  }
-  else  //if the board spot was occupied, return false
-  {
-      return false;
-  }
+    if (gameBoard[row][col] == nullptr)  //if the board spot is unoccupied, make an Ant
+    {
+        gameBoard[row][col] = new Ant(row, col);   //AW: added (row, col) to Ant constructor call
+        return true;
+    }
+    else  //if the board spot was occupied, return false
+    {
+        return false;
+    }
 }
 
 bool Board::addDoodlebug(int row, int col)  //if the board spot is unoccupied, make a Doodlebug
