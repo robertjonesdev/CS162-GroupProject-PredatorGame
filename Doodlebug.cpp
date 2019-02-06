@@ -65,7 +65,7 @@ void Doodlebug::breed(Critter*** gameBoard) {
 								if (this->row != 0) {  //if we're in the top row, do nothing.
 									if (gameBoard[this->row - 1][this->col] == nullptr) {  //if the space is unoccupied breed
 										gameBoard[this->row - 1][this->col] = new Doodlebug(this->row - 1, this->col);  //make a new doodlebug there
-										this->breedingCounter;  //reset breeding counter
+										this->breedingCounter = 0;  //reset breeding counter
 										bred = true;  //exit outer loop condition
 										upCheck = leftCheck = downCheck = rightCheck = true; //force exit of inner loop
 									}
@@ -76,7 +76,7 @@ void Doodlebug::breed(Critter*** gameBoard) {
 								if (this->col != MAX_COLS - 1) {  //if we're in the right column, do nothing.
 									if (gameBoard[this->row][this->col + 1] == nullptr) {  //if the space is unoccupied breed
 										gameBoard[this->row][this->col + 1] = new Doodlebug(this->row, this->col + 1);  //make a new doodlebug there
-										this->breedingCounter;  //reset breeding counter
+										this->breedingCounter = 0;  //reset breeding counter
 										bred = true;  //exit outer loop condition
 										upCheck = leftCheck = downCheck = rightCheck = true; //force exit of inner loop
 									}
@@ -87,7 +87,7 @@ void Doodlebug::breed(Critter*** gameBoard) {
 								if (this->row != MAX_ROWS - 1) {  //if we're in the bottom row, do nothing.
 									if(gameBoard[this->row + 1][this->col] == nullptr) {  //if the space is unoccupied breed
 										gameBoard[this->row + 1][this->col] = new Doodlebug(this->row + 1, this->col);  //make a new doodlebug there
-										this->breedingCounter;  //reset breeding counter
+										this->breedingCounter = 0;  //reset breeding counter
 										bred = true;  //exit outer loop condition
 										upCheck = leftCheck = downCheck = rightCheck = true; //force exit of inner loop
 									}
@@ -98,7 +98,7 @@ void Doodlebug::breed(Critter*** gameBoard) {
 								if (this->col != 0) {  //if we're in the left column, do nothing.
 									if (gameBoard[this->row][this->col - 1] == nullptr) {  //if the space is unoccupied breed
 										gameBoard[this->row][this->col - 1] = new Doodlebug(this->row, this->col - 1);  //make a new doodlebug there
-										this->breedingCounter;  //reset breeding counter
+										this->breedingCounter = 0;  //reset breeding counter
 										bred = true;  //exit outer loop condition
 										upCheck = leftCheck = downCheck = rightCheck = true; //force exit of inner loop
 									}
