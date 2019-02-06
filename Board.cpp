@@ -21,7 +21,7 @@ Board::Board(int rows, int cols) {}; //AW: constructor for extra credit, blank f
 
 Board::Board()
 {
-    
+
     //instantiate the game board
     gameBoard = new Critter**[MAX_ROWS];
     for (int i = 0; i < MAX_ROWS; i++)
@@ -52,7 +52,7 @@ Board::Board()
                                                     //if unsuccessful pick two more random row/col until success
     }
     printBoard();
-  
+
 }
 
 /*********************************************************************
@@ -89,17 +89,39 @@ void Board::runGame(int numSteps)
             for(int j = 0; j < MAX_COLS; j++)  {//each move, iterate through the board
                 if(gameBoard[i][j] == nullptr) //we need to keep this test, because if we don't skip the nullptrs we try to deference them and that's bad
                 {
-                    cout << "Nothing here" << endl;  //for testing, remove later
+                    //cout << "Nothing here" << endl;  //for testing, remove later
                 }
                 else if(gameBoard[i][j]->getIsDoodlebug())
                 {
-                    cout << "This is a doodlebug" << endl;  //for testing, remove later
+                    cout << "This is a doodlebug [" << i << "][" << j << "]" << endl;  //for testing, remove later
                     gameBoard[i][j]->incrementCounters();
-                    cout << "Trying to move" << endl;
+                }
+            }
+        }
+        for(int i = 0; i < MAX_ROWS; i++){//doodlebugs move first
+            for(int j = 0; j < MAX_COLS; j++)  {//each move, iterate through the board
+                if(gameBoard[i][j] == nullptr) //we need to keep this test, because if we don't skip the nullptrs we try to deference them and that's bad
+                {
+                    //cout << "Nothing here" << endl;  //for testing, remove later
+                }
+                else if(gameBoard[i][j]->getIsDoodlebug())
+                {
+                    cout << "Trying to move [" << i << "][" << j << "]"  << endl;
                     gameBoard[i][j]->move(gameBoard);
-                    cout << "Trying to breed" << endl;
+                }
+            }
+        }
+        for(int i = 0; i < MAX_ROWS; i++){//doodlebugs move first
+            for(int j = 0; j < MAX_COLS; j++)  {//each move, iterate through the board
+                if(gameBoard[i][j] == nullptr) //we need to keep this test, because if we don't skip the nullptrs we try to deference them and that's bad
+                {
+                    //cout << "Nothing here" << endl;  //for testing, remove later
+                }
+                else if(gameBoard[i][j]->getIsDoodlebug())
+                {
+                    cout << "Trying to breed [" << i << "][" << j << "]"  << endl;
                     gameBoard[i][j]->breed(gameBoard);
-                    cout << "Trying to starve" << endl;
+                    cout << "Trying to starve [" << i << "][" << j << "]"  << endl;
                     gameBoard[i][j]->starve(gameBoard);
                 }
             }
@@ -113,7 +135,7 @@ void Board::runGame(int numSteps)
             {
                 if(gameBoard[i][j] == nullptr) //we need to keep this test, because if we don't skip the nullptrs we try to deference them and that's bad
                 {
-                    cout << "Nothing here" << endl;  //for testing, remove later
+                    //cout << "Nothing here" << endl;  //for testing, remove later
                 }
                 else if(gameBoard[i][j]->getIsAnt())
                 {
@@ -125,10 +147,9 @@ void Board::runGame(int numSteps)
 
             }
             cout << "Finished row " << i << endl;
-            printBoard();
         }
         printBoard();
-        numSteps--;  
+        numSteps--;
     }
 }
 
@@ -153,7 +174,7 @@ void Board::printBoard()
             { //it's empty
                 cout << " ";
             }
-            else if (gameBoard[i][j]->getIsDoodlebug())
+            else if (dynamic_cast<Doodlebug*>(gameBoard[i][j]))
             { //Is a doodlebug object.
                 cout << "X";
             }
