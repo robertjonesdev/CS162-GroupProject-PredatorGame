@@ -46,3 +46,7 @@ bool Critter::getIsAnt() {
 bool Critter::getIsDoodlebug() {
   return isDoodlebug;
 }
+
+bool Critter::starve() {
+  return false;
+}

@@ -123,7 +123,7 @@ void Board::runGame(int numSteps)
                 if(gameBoard[i][j] != nullptr && gameBoard[i][j]->getIsDoodlebug())
                 {
                     cout << "Trying to starve [" << i << "][" << j << "]"  << endl;
-                    if (gameBoard[i][j]->starve(gameBoard))
+                    if (gameBoard[i][j]->starve())
                     {
                         delete gameBoard[i][j];
                         gameBoard[i][j] = nullptr;
