@@ -142,7 +142,7 @@ void Board::runGame(int numSteps)
             {
                 if(gameBoard[i][j] != nullptr && gameBoard[i][j]->getIsAnt())
                 {
-                    cout << "This is an ant" << endl;  //for testing, remove later
+                    //cout << "This is an ant" << endl;  //for testing, remove later
                     //gameBoard[i][j]->breed(gameBoard);
                 }
             }
