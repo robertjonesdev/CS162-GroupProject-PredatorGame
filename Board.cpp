@@ -95,13 +95,12 @@ void Board::runGame(int numSteps)
                 {
                     cout << "This is a doodlebug" << endl;  //for testing, remove later
                     gameBoard[i][j]->incrementCounters();
-                    cout << "One" << endl;
+                    cout << "Trying to move" << endl;
                     gameBoard[i][j]->move(gameBoard);
-                    cout << "Two" << endl;
+                    cout << "Trying to breed" << endl;
                     gameBoard[i][j]->breed(gameBoard);
-                    cout << "Three" << endl;
+                    cout << "Trying to starve" << endl;
                     gameBoard[i][j]->starve(gameBoard);
-                    cout << "Four" << endl;
                 }
             }
         }
