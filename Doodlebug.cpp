@@ -21,21 +21,11 @@ Doodlebug::Doodlebug(int row, int col): Critter(row, col) {
   isAnt = false;
 }
 
-//Returns the starving counter
-int Doodlebug::getStarvingCounter() {
-  return starvingCounter;
-}
-
 //Increments breeding counter by 1
 void Doodlebug::incrementCounters() {
   ++breedingCounter;
   ++starvingCounter;
   hasMovedToday = false;
-}
-
-//Takes an int to set the starving counter (used to increment and reset counter)
-void Doodlebug::setStarvingCounter(int newCounter) {
-  starvingCounter = newCounter;
 }
 
 //Removes doodlebug if starvingCounter >= 3
@@ -52,7 +42,7 @@ void Doodlebug::starve(Critter*** gameBoard)
 //Checks that breedingCounter is >= 8 and that there is an empty adjacent space. If so, creates new Doodlebug
 void Doodlebug::breed(Critter*** gameBoard) {
     std::cout << "inside breed" << std::endl;
-	if (this->getBreedingCounter() >= 8) //change this to 0 to test breeding function
+	if (this->breedingCounter >= 8) //change this to 0 to test breeding function
 	{
         std::cout << "inside if1" << std::endl;
 		bool bred = false;

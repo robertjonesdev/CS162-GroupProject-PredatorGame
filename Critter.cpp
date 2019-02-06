@@ -17,8 +17,8 @@ Critter::Critter()
   isDoodlebug = false;
 };
 
-//Critter constructor. Takes an int for the row and an int for the column
-//and sets breedingCounter to zero to start.
+//Critter constructor. Takes an int for the row and an int for the column, 
+//set breedingCounter to zero, and sets isAnt and isDoodlebug to false.
 Critter::Critter(int row, int col) {
   this->row = row;
   this->col = col;
@@ -27,24 +27,14 @@ Critter::Critter(int row, int col) {
   isDoodlebug = false;
 }
 
-//Returns x-axis location
+//Returns Critter's row on the board
 int Critter::getRow() {
   return row;
 }
 
-//Returns y-axis location
+//Returns Critter's column on the board
 int Critter::getCol() {
   return col;
-}
-
-//Returns breeding counter
-int Critter::getBreedingCounter() {
-  return breedingCounter;
-}
-
-//Takes an int to set the breeding counter (used to increment and reset counter)
-void Critter::setBreedingCounter(int newCounter) {
-  breedingCounter = newCounter;
 }
 
 //Returns true if ant, otherwise false

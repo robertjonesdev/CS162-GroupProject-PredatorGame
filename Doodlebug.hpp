@@ -17,8 +17,6 @@ class Doodlebug: public Critter {
 
   public:
     Doodlebug(int, int);
-    int getStarvingCounter();
-    void setStarvingCounter(int);
     void incrementCounters();
     void breed(Critter*** gameBoard);
     void move(Critter*** gameBoard);

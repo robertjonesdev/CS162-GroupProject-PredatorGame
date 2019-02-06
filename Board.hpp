@@ -31,7 +31,5 @@ class Board
         void printBoard();
         bool addAnt(int, int);
         bool addDoodlebug(int, int);
-        void increaseAge();
-        void critterAttach();
 };
 #endif

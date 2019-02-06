@@ -25,8 +25,6 @@ class Critter {
     Critter(int, int);
     int getRow();
     int getCol();
-    int getBreedingCounter();
-    void setBreedingCounter(int);
     virtual bool getIsDoodlebug();
     virtual bool getIsAnt();
     virtual void starve(Critter*** gameBoard) {};  //for doodlebug starving

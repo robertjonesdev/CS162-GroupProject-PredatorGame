@@ -223,13 +223,3 @@ bool Board::addDoodlebug(int row, int col)  //if the board spot is unoccupied, m
         return false;
     }
 }
-
-void Board::increaseAge()
-{
-
-}
-
-void Board::critterAttach()
-{
-
-}

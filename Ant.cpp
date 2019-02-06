@@ -21,7 +21,7 @@ Ant::Ant(int row, int col): Critter(row, col) {
 
 //Checks that breedingCounter is >= 3 and that there is an empty ajacent space. If so, creates new Ant
 void Ant::breed(Critter*** gameBoard) {
-  if (getBreedingCounter() >= 3) {
+  if (this->breedingCounter >= 3) {
     //Need to add function/steps to check for empty adjacent space and if so, add a new Ant
   }
 }
