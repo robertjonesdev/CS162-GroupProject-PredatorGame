@@ -39,14 +39,15 @@ void Doodlebug::setStarvingCounter(int newCounter) {
 }
 
 //Removes doodlebug if starvingCounter >= 3
-void Doodlebug::starve(Critter*** gameBoard)
+bool Doodlebug::starve()
 {
 	if(this->starvingCounter >= 3)
 	{
         std::cout << "starving" << this->row << " " << this->col << std::endl;
-		gameBoard[this->row][this->col] == nullptr; //AW: I think this will work? Maybe it breaks everything, need to test
-		delete this;
+		//gameBoard[this->row][this->col] == nullptr; //AW: I think this will work? Maybe it breaks everything, need to test
+		return true;
 	}
+    return false;
 }
 
 //Checks that breedingCounter is >= 8 and that there is an empty adjacent space. If so, creates new Doodlebug
