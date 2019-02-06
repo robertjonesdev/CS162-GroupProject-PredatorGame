@@ -95,7 +95,7 @@ void Board::runGame(int numSteps)
                 //if(gameBoard[i][j] == nullptr) //we need to keep this test, because if we don't skip the nullptrs we try to deference them and that's bad
                 if(gameBoard[i][j] != nullptr && gameBoard[i][j]->getIsDoodlebug())  //These can be combined since the left-hand side will be evaluated first.
                 {
-                    cout << "This is a doodlebug [" << i << "][" << j << "]" << endl;  //for testing, remove later
+                    //cout << "This is a doodlebug [" << i << "][" << j << "]" << endl;  //for testing, remove later
                     gameBoard[i][j]->incrementCounters();
                 }
             }
@@ -139,7 +139,6 @@ void Board::runGame(int numSteps)
             {
                 if(gameBoard[i][j] != nullptr && gameBoard[i][j]->getIsAnt()) //These can be combined since the left-hand side will be evaluated first.
                 {
-                    //cout << "This is an ant" << endl;  //for testing, remove later
                     gameBoard[i][j]->incrementCounters(); //Consider moving this to separate for loop.
                 }
             }
@@ -150,7 +149,7 @@ void Board::runGame(int numSteps)
             {
                 if(gameBoard[i][j] != nullptr && gameBoard[i][j]->getIsAnt()) //These can be combined since the left-hand side will be evaluated first.
                 {
-                    cout << "This is an ant" << endl;  //for testing, remove later
+                    cout << "Ant trying to moved from [" << i << "][" << j << "]" << endl;  //for testing, remove later
                     gameBoard[i][j]->move(gameBoard);
                 }
             }
@@ -161,7 +160,7 @@ void Board::runGame(int numSteps)
             {
                 if(gameBoard[i][j] != nullptr && gameBoard[i][j]->getIsAnt())
                 {
-                    cout << "This is an ant" << endl;  //for testing, remove later
+                    cout << "Ant trying to breed from [" << i << "][" << j << "]" << endl;  //for testing, remove later
                     gameBoard[i][j]->breed(gameBoard);
                 }
             }

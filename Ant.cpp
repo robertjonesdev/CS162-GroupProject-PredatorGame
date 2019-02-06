@@ -21,7 +21,6 @@ Ant::Ant(int row, int col): Critter(row, col) {
 
 //Checks that breedingCounter is >= 3 and that there is an empty ajacent space. If so, creates new Ant
 void Ant::breed(Critter*** gameBoard) {
-<<<<<<< HEAD
     std::cout << "inside breed" << std::endl;
     if (this->breedingCounter >= 3) //change this to 0 to test breeding function
     {
@@ -37,49 +36,61 @@ void Ant::breed(Critter*** gameBoard) {
                 int breedDirection = rand() % 4;
                 switch (breedDirection)
                 {
-                case UP:    std::cout << "Trying to breed up!" << std::endl;  //for testing, remove later
-                    upCheck = true;
-                    if (this->row != 0) {  //if we're in the top row, do nothing.
-                        if (gameBoard[this->row - 1][this->col] == nullptr) {  //if the space is unoccupied breed
-                            gameBoard[this->row - 1][this->col] = new Ant(this->row - 1, this->col);  //make a new doodlebug there
-                            this->breedingCounter = 0;  //reset breeding counter
-                            bred = true;  //exit outer loop condition
-                            upCheck = leftCheck = downCheck = rightCheck = true; //force exit of inner loop
-                            std::cout << "successful breeding up!" << std::endl;
+                    case UP:
+                    {
+                        std::cout << "Trying to breed up!" << std::endl;  //for testing, remove later
+                        upCheck = true;
+                        if (this->row != 0) {  //if we're in the top row, do nothing.
+                            if (gameBoard[this->row - 1][this->col] == nullptr) {  //if the space is unoccupied breed
+                                gameBoard[this->row - 1][this->col] = new Ant(this->row - 1, this->col);  //make a new doodlebug there
+                                this->breedingCounter = 0;  //reset breeding counter
+                                bred = true;  //exit outer loop condition
+                                upCheck = leftCheck = downCheck = rightCheck = true; //force exit of inner loop
+                                std::cout << "successful breeding up!" << std::endl;
+                            }
                         }
-                    } break;
-                case RIGHT: std::cout << "Trying to breed right!" << std::endl;  //for testing, remove later
-                    rightCheck = true;
-                    if (this->col != MAX_COLS - 1) {  //if we're in the right column, do nothing.
-                        if (gameBoard[this->row][this->col + 1] == nullptr) {  //if the space is unoccupied breed
-                            gameBoard[this->row][this->col + 1] = new Ant(this->row, this->col + 1);  //make a new doodlebug there
-                            this->breedingCounter = 0;  //reset breeding counter
-                            bred = true;  //exit outer loop condition
-                            upCheck = leftCheck = downCheck = rightCheck = true; //force exit of inner loop
-                            std::cout << "successful breeding right!" << std::endl;
+                        break;
+                    }
+                    case RIGHT:
+                    {
+                        std::cout << "Trying to breed right!" << std::endl;  //for testing, remove later
+                        rightCheck = true;
+                        if (this->col != MAX_COLS - 1) {  //if we're in the right column, do nothing.
+                            if (gameBoard[this->row][this->col + 1] == nullptr) {  //if the space is unoccupied breed
+                                gameBoard[this->row][this->col + 1] = new Ant(this->row, this->col + 1);  //make a new doodlebug there
+                                this->breedingCounter = 0;  //reset breeding counter
+                                bred = true;  //exit outer loop condition
+                                upCheck = leftCheck = downCheck = rightCheck = true; //force exit of inner loop
+                                std::cout << "successful breeding right!" << std::endl;
+                            }
                         }
-                    } break;
-                case DOWN:  std::cout << "Trying to breed down!" << std::endl;  //for testing, remove later
-                    downCheck = true;
-                    if (this->row != MAX_ROWS - 1) {  //if we're in the bottom row, do nothing.
-                        if (gameBoard[this->row + 1][this->col] == nullptr) {  //if the space is unoccupied breed
-                            gameBoard[this->row + 1][this->col] = new Ant(this->row + 1, this->col);  //make a new doodlebug there
-                            this->breedingCounter = 0;  //reset breeding counter
-                            bred = true;  //exit outer loop condition
-                            upCheck = leftCheck = downCheck = rightCheck = true; //force exit of inner loop
-                            std::cout << "successful breeding down!" << std::endl;
+                        break;
+                    }
+                    case DOWN:  std::cout << "Trying to breed down!" << std::endl;  //for testing, remove later
+                        downCheck = true;
+                        if (this->row != MAX_ROWS - 1) {  //if we're in the bottom row, do nothing.
+                            if (gameBoard[this->row + 1][this->col] == nullptr) {  //if the space is unoccupied breed
+                                gameBoard[this->row + 1][this->col] = new Ant(this->row + 1, this->col);  //make a new doodlebug there
+                                this->breedingCounter = 0;  //reset breeding counter
+                                bred = true;  //exit outer loop condition
+                                upCheck = leftCheck = downCheck = rightCheck = true; //force exit of inner loop
+                                std::cout << "successful breeding down!" << std::endl;
+                            }
+                        } break;
+                    case LEFT:
+                    {
+                        std::cout << "Trying to breed left!" << std::endl;  //for testing, remove later
+                        leftCheck = true;
+                        if (this->col != 0) {  //if we're in the left column, do nothing.
+                            if (gameBoard[this->row][this->col - 1] == nullptr) {  //if the space is unoccupied breed
+                                gameBoard[this->row][this->col - 1] = new Ant(this->row, this->col - 1);  //make a new doodlebug there
+                                this->breedingCounter = 0;  //reset breeding counter
+                                bred = true;  //exit outer loop condition
+                                upCheck = leftCheck = downCheck = rightCheck = true; //force exit of inner loop
+                                std::cout << "successful breeding left!" << std::endl;
+                            }
                         }
-                    } break;
-                case LEFT:  std::cout << "Trying to breed left!" << std::endl;  //for testing, remove later
-                    leftCheck = true;
-                    if (this->col != 0) {  //if we're in the left column, do nothing.
-                        if (gameBoard[this->row][this->col - 1] == nullptr) {  //if the space is unoccupied breed
-                            gameBoard[this->row][this->col - 1] = new Ant(this->row, this->col - 1);  //make a new doodlebug there
-                            this->breedingCounter = 0;  //reset breeding counter
-                            bred = true;  //exit outer loop condition
-                            upCheck = leftCheck = downCheck = rightCheck = true; //force exit of inner loop
-                            std::cout << "successful breeding left!" << std::endl;
-                        }
+                        break;
                     }
                 }
             }
@@ -90,62 +101,82 @@ void Ant::breed(Critter*** gameBoard) {
             }
         }
     }
-=======
-  if (this->breedingCounter >= 3) {
-    //Need to add function/steps to check for empty adjacent space and if so, add a new Ant
-  }
->>>>>>> e9ad9fd4550bcfcea060417e9c2106d03e90eddf
 }
 
 //Increments breeding counter by 1
 void Ant::incrementCounters() {
-  ++breedingCounter;
+      ++breedingCounter;
+      hasMovedToday = false;
 }
 
 
 //Moves to an empty adjacent space. If the first move fails, the Ant does not move
 void Ant::move(Critter*** gameBoard) {
+    if (!hasMovedToday)
+    {
+      //AW: For reference: enum Direction {UP=0, RIGHT=1, DOWN=2, LEFT=3}
+      int moveDirection = rand() % 4;  //0, 1, 2, or 3.
 
-  //AW: For reference: enum Direction {UP=0, RIGHT=1, DOWN=2, LEFT=3}
-  int moveDirection = rand() % 4;  //0, 1, 2, or 3.
-
-  switch(moveDirection)
-  {
-    case UP:    std::cout << "Trying to move up!" << std::endl;  //for testing, remove later
-                if(this->row != 0){  //if we're in the top row, do nothing.
-                  if(gameBoard[this->row - 1][this->col] == nullptr){  //if the space is unoccupied, move
+      switch(moveDirection)
+      {
+        case UP:
+        {
+        std::cout << "Trying to move up!" << std::endl;  //for testing, remove later
+            if (this->row != 0)
+            {  //if we're in the top row, do nothing.
+                if (gameBoard[this->row - 1][this->col] == nullptr)
+                {  //if the space is unoccupied, move
                     gameBoard[this->row - 1][this->col] = this;
                     gameBoard[this->row][this->col] = nullptr;
                     this->row--;
-                  }
-                } break;
-
-    case RIGHT: std::cout << "Trying to move right!" << std::endl;  //for testing, remove later
-                if(this->col != MAX_COLS - 1){  //if we're in the right column, do nothing.
-                  if(gameBoard[this->row][this->col + 1] == nullptr){  //if the space is unoccupied, move
+                }
+            }
+            break;
+        }
+        case RIGHT:
+        {
+            std::cout << "Trying to move right!" << std::endl;  //for testing, remove later
+            if (this->col != MAX_COLS - 1)
+            {  //if we're in the right column, do nothing.
+                if(gameBoard[this->row][this->col + 1] == nullptr)
+                {  //if the space is unoccupied, move
                     gameBoard[this->row][this->col + 1] = this;
                     gameBoard[this->row][this->col] = nullptr;
                     this->col++;
-                  }
-                } break;
-
-    case DOWN:  std::cout << "Trying to move down!" << std::endl;  //for testing, remove later
-                if(this->row != MAX_ROWS - 1){  //if we're in the bottom row, do nothing.
-                  if(gameBoard[this->row + 1][this->col] == nullptr){  //if the space is unoccupied, move
+                }
+            }
+            break;
+        }
+        case DOWN:
+        {
+            std::cout << "Trying to move down!" << std::endl;  //for testing, remove later
+            if (this->row != MAX_ROWS - 1)
+            {  //if we're in the bottom row, do nothing.
+                if (gameBoard[this->row + 1][this->col] == nullptr)
+                {  //if the space is unoccupied, move
                     gameBoard[this->row + 1][this->col] = this;
                     gameBoard[this->row][this->col] = nullptr;
                     this->row++;
-                  }
-                } break;
-
-    case LEFT:  std::cout << "Trying to move left!" << std::endl;  //for testing, remove later
-                if(this->col != 0){  //if we're in the left column, do nothing.
-                  if(gameBoard[this->row][this->col - 1] == nullptr){  //if the space is unoccupied, move
+                }
+            }
+            break;
+        }
+        case LEFT:
+        {
+            std::cout << "Trying to move left!" << std::endl;  //for testing, remove later
+            if (this->col != 0)
+            {  //if we're in the left column, do nothing.
+                if (gameBoard[this->row][this->col - 1] == nullptr)
+                {  //if the space is unoccupied, move
                     gameBoard[this->row][this->col - 1] = this;
                     gameBoard[this->row][this->col] = nullptr;
                     this->col--;
-                  }
                 }
+            }
+            break;
+        }
+      }
+      hasMovedToday = true;
   }
 }
 

@@ -190,41 +190,62 @@ void Doodlebug::move(Critter*** gameBoard) {
 
     		switch (moveDirection)
     		{
-    		case UP:    std::cout << "Trying to move up!" << std::endl;  //for testing, remove later
-    					if (this->row != 0) {  //if we're in the top row, do nothing.
-    						if (gameBoard[this->row - 1][this->col] == nullptr) {  //if the space is unoccupied, move
-    							gameBoard[this->row - 1][this->col] = this;
-    							gameBoard[this->row][this->col] = nullptr;
-    							this->row--;
-    						}
-    					} break;
-
-    		case RIGHT: std::cout << "Trying to move right!" << std::endl;  //for testing, remove later
-    					if (this->col != MAX_COLS - 1) {  //if we're in the right column, do nothing.
-    						if (gameBoard[this->row][this->col + 1] == nullptr) {  //if the space is unoccupied, move
-    							gameBoard[this->row][this->col + 1] = this;
-    							gameBoard[this->row][this->col] = nullptr;
-    							this->col++;
-    						}
-    					} break;
-
-    		case DOWN:  std::cout << "Trying to move down!" << std::endl;  //for testing, remove later
-    					if (this->row != MAX_ROWS - 1) {  //if we're in the bottom row, do nothing.
-    						if (gameBoard[this->row + 1][this->col] == nullptr) {  //if the space is unoccupied, move
-    							gameBoard[this->row + 1][this->col] = this;
-    							gameBoard[this->row][this->col] = nullptr;
-    							this->row++;
-    						}
-    					} break;
-
-    		case LEFT:  std::cout << "Trying to move left!" << std::endl;  //for testing, remove later
-    					if (this->col != 0) {  //if we're in the left column, do nothing.
-    						if (gameBoard[this->row][this->col - 1] == nullptr) {  //if the space is unoccupied, move
-    							gameBoard[this->row][this->col - 1] = this;
-    							gameBoard[this->row][this->col] = nullptr;
-    							this->col--;
-    						}
-    					}
+        		case UP:
+                {
+                    std::cout << "Trying to move up!" << std::endl;  //for testing, remove later
+        		    if (this->row != 0)
+                    {  //if we're in the top row, do nothing.
+            			if (gameBoard[this->row - 1][this->col] == nullptr)
+                        {  //if the space is unoccupied, move
+                			gameBoard[this->row - 1][this->col] = this;
+                			gameBoard[this->row][this->col] = nullptr;
+                			this->row--;
+            			}
+        		    }
+                    break;
+                }
+        		case RIGHT:
+                {
+                    std::cout << "Trying to move right!" << std::endl;  //for testing, remove later
+        		    if (this->col != MAX_COLS - 1)
+                    {  //if we're in the right column, do nothing.
+            			if (gameBoard[this->row][this->col + 1] == nullptr)
+                        {  //if the space is unoccupied, move
+                			gameBoard[this->row][this->col + 1] = this;
+                			gameBoard[this->row][this->col] = nullptr;
+                			this->col++;
+            			}
+        			}
+                    break;
+                }
+        		case DOWN:
+                {
+                    std::cout << "Trying to move down!" << std::endl;  //for testing, remove later
+        		    if (this->row != MAX_ROWS - 1)
+                    {  //if we're in the bottom row, do nothing.
+            			if (gameBoard[this->row + 1][this->col] == nullptr)
+                        {  //if the space is unoccupied, move
+                			gameBoard[this->row + 1][this->col] = this;
+                			gameBoard[this->row][this->col] = nullptr;
+                			this->row++;
+            			}
+        			}
+                    break;
+                }
+        		case LEFT:
+                {
+                    std::cout << "Trying to move left!" << std::endl;  //for testing, remove later
+        		    if (this->col != 0)
+                    {  //if we're in the left column, do nothing.
+            			if (gameBoard[this->row][this->col - 1] == nullptr)
+                        {  //if the space is unoccupied, move
+                			gameBoard[this->row][this->col - 1] = this;
+                			gameBoard[this->row][this->col] = nullptr;
+                			this->col--;
+            			}
+        			}
+                    break;
+                }
     		}
     	}
         this->hasMovedToday = true;
