@@ -17,8 +17,6 @@ using std::endl;
 
 
 //Constructors and Deconstructor
-Board::Board(int rows, int cols) {}; //AW: constructor for extra credit, blank for now
-
 Board::Board()
 {
 
@@ -54,12 +52,74 @@ Board::Board()
     printBoard();
 
 }
+//Extra Credit Constructor 
+Board::Board(int rows, int cols, int numAnts, int numDoodles) {
+    numRows = rows;
+    numCols = cols;
+    this->numAnts = numAnts;
+    this->numDoodles = numDoodles;
+    gameBoard = new Critter**[numRows];
+    for (int i = 0; i < this->numRows; i++)
+    {
+        gameBoard[i] = new Critter*[numCols];
+    }
 
+    //initialize board to null pointers;
+    for(int i = 0; i < numRows; i++)
+    {
+        for(int j = 0; j < numCols; j++)
+        {
+            gameBoard[i][j] = nullptr;
+        }
+    }
+
+    //randomly place all the starting doodlebugs
+    for (int counter = 0; counter < this->numDoodles; counter++)
+    {
+        while (!addDoodlebug(rand() % numRows, rand() % numCols));  //picks random row/col, attempts to make Doodlebug
+                                                          //if unsuccessful pick two more random row/col until success
+    }
+
+    //randomly place the all the starting ants
+    for (int counter = 0; counter < this->numAnts; counter++)
+    {
+        while (!addAnt(rand() % numRows, rand() % numCols));  //picks random row/col, attempts to make Ant
+                                                    //if unsuccessful pick two more random row/col until success
+    }
+    printBoard();
+}; 
+
+ //AW: constructor for extra credit, blank for now
+
+
+
+/*********************************************************************
+** Deconstructor EXTRA CREDIT
+** Deconstructor deletes all dynamically created objects in the gameBoard Array.
+** Tested with Valgrind 2/2/2019 7:49PM
+*********************************************************************/
+/*
+Board::~Board()
+{
+    //Deallocate memory for the dynamic arrow.
+    for (int i = 0; i < numRows; i++)
+    {
+        for(int j = 0; j < numCols; j++)
+        {
+            delete gameBoard[i][j];
+        }
+        delete [] gameBoard[i];
+    }
+    delete [] gameBoard;
+    gameBoard = nullptr;
+}
+*/
 /*********************************************************************
 ** Deconstructor
 ** Deconstructor deletes all dynamically created objects in the gameBoard Array.
 ** Tested with Valgrind 2/2/2019 7:49PM
-*********************************************************************/
+*********************************************************************/  
+
 Board::~Board()
 {
     //Deallocate memory for the dynamic arrow.
@@ -73,13 +133,43 @@ Board::~Board()
     }
     delete [] gameBoard;
     gameBoard = nullptr;
-}
+} 
 
 //Functions
-
+/*********************************************************************
+** runGame() EXTRA CREDIT
+** 
+*********************************************************************/
+/*
+void Board::runGame(int numSteps)
+{
+    while(numSteps > 0)
+    {
+        for(int i = 0; i < numRows; i++)
+        {
+            for(int j = 0; j < numCols; j++)  //each move, iterate through the board
+            {
+                if(gameBoard[i][j] == nullptr) //we need to keep this test, because if we don't skip the nullptrs we try to deference them and that's bad
+                {
+                    cout << "Nothing here" << endl;  //for testing, remove later
+                }
+                else if(gameBoard[i][j]->getIsAnt())
+                {
+                    cout << "This is an ant" << endl;  //for testing, remove later
+                    gameBoard[i][j]->move(gameBoard);
+                }
+            }
+            cout << "Finished row " << i << endl;
+            printBoard();
+        }
+        printBoard();
+        numSteps--;  
+    }
+}
+*/
 /*********************************************************************
 ** runGame()
-**
+**ORIGINAL
 *********************************************************************/
 void Board::runGame(int numSteps)
 {
@@ -164,9 +254,50 @@ void Board::runGame(int numSteps)
 }
 
 /*********************************************************************
-** printBoard()
+** printBoard() EXTRA CREDIT
+** This function prints the board to the console. 
+*********************************************************************/
+/*
+void Board::printBoard()
+{
+    //Top border
+    cout.width(numCols + 2);
+    cout.fill('-');
+    cout << '-' << endl;
+    cout.fill(' ');
+
+    for(int i = 0; i < numRows; i++)
+    {
+        cout << "|";
+        for(int j = 0; j < numCols; j++)
+        {
+            if (gameBoard[i][j] == nullptr)
+            { //it's empty
+                cout << " ";
+            }
+            else if (gameBoard[i][j]->getIsDoodlebug())
+            { //Is a doodlebug object.
+                cout << "X";
+            }
+            else
+            { //Is an ant.
+                cout << "O";
+            }
+        }
+        cout << "|\n";
+    }
+    //Bottom border
+    cout.width(numCols + 2);
+    cout.fill('-');
+    cout << '-' << endl;
+    cout.fill(' ');
+}
+*/
+/*********************************************************************
+** printBoard() ORIGINAL
 ** This function prints the board to the console.
 *********************************************************************/
+
 void Board::printBoard()
 {
     //Top border

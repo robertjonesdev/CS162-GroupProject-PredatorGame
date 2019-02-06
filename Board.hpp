@@ -15,15 +15,20 @@ const int MAX_COLS = 20;
 const int STARTING_ANTS = 100;
 const int STARTING_DOODLEBUGS = 5;
 
+
 class Board
 {
     private:
         Critter*** gameBoard;
+        int numRows,
+            numCols,
+            numAnts,
+            numDoodles; 
 
     public:
         //Constructors and Deconstructor
         Board();
-        Board(int rows, int cols);  //AW: constructor for extra credit, blank for now
+        Board(int rows, int cols, int ants, int doodles);  //AW: constructor for extra credit, blank for now
         virtual ~Board();
 
         //Functions
