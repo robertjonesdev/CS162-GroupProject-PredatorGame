@@ -20,7 +20,7 @@ class Doodlebug: public Critter {
     void incrementCounters();
     void breed(Critter*** gameBoard);
     void move(Critter*** gameBoard);
-    void starve(Critter*** gameBoard);
+    bool starve();
     bool getIsDoodlebug();
     bool getIsAnt();
 };

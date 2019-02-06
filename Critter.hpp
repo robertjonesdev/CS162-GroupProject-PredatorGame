@@ -27,7 +27,7 @@ class Critter {
     int getCol();
     virtual bool getIsDoodlebug();
     virtual bool getIsAnt();
-    virtual void starve(Critter*** gameBoard) {};  //for doodlebug starving
+    virtual bool starve() {};  //for doodlebug starving
     virtual void incrementCounters() = 0;  //adds 1 to the breeding counter, and also 1 to the starving counter for Doodlebugs
     virtual void breed(Critter*** gameBoard) = 0; //pure virtual function which will be overridden in child classes
     virtual void move(Critter*** gameBoard) = 0; //pure virtual function which will be overridden in child classes

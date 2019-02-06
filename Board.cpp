@@ -115,8 +115,19 @@ void Board::runGame(int numSteps)
                 {
                     cout << "Trying to breed [" << i << "][" << j << "]"  << endl;
                     gameBoard[i][j]->breed(gameBoard);
+                }
+            }
+        }
+        for(int i = 0; i < MAX_ROWS; i++){//doodlebugs move first
+            for(int j = 0; j < MAX_COLS; j++)  {//each move, iterate through the board
+                if(gameBoard[i][j] != nullptr && gameBoard[i][j]->getIsDoodlebug())
+                {
                     cout << "Trying to starve [" << i << "][" << j << "]"  << endl;
-                    gameBoard[i][j]->starve(gameBoard);
+                    if (gameBoard[i][j]->starve(gameBoard))
+                    {
+                        delete gameBoard[i][j];
+                        gameBoard[i][j] = nullptr;
+                    }
                 }
             }
         }
