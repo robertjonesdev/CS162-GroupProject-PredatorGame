@@ -36,4 +36,4 @@ endif
 #removes binary, .d (dependency), .o files
 .PHONY : clean
 clean:
-	$(RM) $(BIN) *.d *.o core
+	$(RM) $(BIN) $(BIN).exe *.d *.o core

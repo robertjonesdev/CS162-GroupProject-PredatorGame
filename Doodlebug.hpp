@@ -19,8 +19,10 @@ class Doodlebug: public Critter {
     Doodlebug(int, int);
     int getStarvingCounter();
     void setStarvingCounter(int);
+    void incrementCounters();
     void breed(Critter*** gameBoard);
     void move(Critter*** gameBoard);
+    void starve(Critter*** gameBoard);
     bool getIsDoodlebug();
     bool getIsAnt();
 };
