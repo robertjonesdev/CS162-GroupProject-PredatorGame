@@ -123,7 +123,7 @@ void Board::runGame(int numSteps)
                 if(gameBoard[i][j] != nullptr && gameBoard[i][j]->getIsDoodlebug())
                 {
                     cout << "Trying to starve [" << i << "][" << j << "]"  << endl;
-                    if (gameBoard[i][j]->starve(gameBoard))
+                    if (gameBoard[i][j]->starve())
                     {
                         delete gameBoard[i][j];
                         gameBoard[i][j] = nullptr;
@@ -133,7 +133,17 @@ void Board::runGame(int numSteps)
         }
         cout << "Finished doodlebug move" << endl;
         printBoard();
-
+        for(int i = 0; i < MAX_ROWS; i++) //ants move second
+        {
+            for(int j = 0; j < MAX_COLS; j++)  //each move, iterate through the board
+            {
+                if(gameBoard[i][j] != nullptr && gameBoard[i][j]->getIsAnt()) //These can be combined since the left-hand side will be evaluated first.
+                {
+                    //cout << "This is an ant" << endl;  //for testing, remove later
+                    gameBoard[i][j]->incrementCounters(); //Consider moving this to separate for loop.
+                }
+            }
+        }
         for(int i = 0; i < MAX_ROWS; i++) //ants move second
         {
             for(int j = 0; j < MAX_COLS; j++)  //each move, iterate through the board
@@ -141,9 +151,7 @@ void Board::runGame(int numSteps)
                 if(gameBoard[i][j] != nullptr && gameBoard[i][j]->getIsAnt()) //These can be combined since the left-hand side will be evaluated first.
                 {
                     cout << "This is an ant" << endl;  //for testing, remove later
-                    gameBoard[i][j]->incrementCounters(); //Consider moving this to separate for loop.
                     gameBoard[i][j]->move(gameBoard);
-                    //gameBoard[i][j]->breed(gameBoard);
                 }
             }
         }
@@ -153,8 +161,8 @@ void Board::runGame(int numSteps)
             {
                 if(gameBoard[i][j] != nullptr && gameBoard[i][j]->getIsAnt())
                 {
-                    //cout << "This is an ant" << endl;  //for testing, remove later
-                    //gameBoard[i][j]->breed(gameBoard);
+                    cout << "This is an ant" << endl;  //for testing, remove later
+                    gameBoard[i][j]->breed(gameBoard);
                 }
             }
         }

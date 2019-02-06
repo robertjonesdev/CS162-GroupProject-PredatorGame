@@ -143,6 +143,7 @@ void Doodlebug::move(Critter*** gameBoard) {
     			gameBoard[this->row][this->col] = nullptr;   //set old space to nullptr
     			this->row--;  //update critter row
     			hasEaten = true;
+                starvingCounter = 0;
     			std::cout << "Ate an ant" << std::endl;
     		}
     	}
@@ -157,6 +158,7 @@ void Doodlebug::move(Critter*** gameBoard) {
     			gameBoard[this->row][this->col] = nullptr;
     			this->row++;
     			hasEaten = true;
+                starvingCounter = 0;
     			std::cout << "Ate an ant" << std::endl;
     		}
     	}
@@ -171,6 +173,7 @@ void Doodlebug::move(Critter*** gameBoard) {
     			gameBoard[this->row][this->col] = nullptr;
     			this->col--;
     			hasEaten = true;
+                starvingCounter = 0;
     			std::cout << "Ate an ant" << std::endl;
     		}
     	}
@@ -185,6 +188,7 @@ void Doodlebug::move(Critter*** gameBoard) {
     			gameBoard[this->row][this->col] = nullptr;
     			this->col++;
     			hasEaten = true;
+                starvingCounter = 0;
     			std::cout << "Ate an ant" << std::endl;
     		}
     	}
