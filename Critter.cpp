@@ -37,16 +37,6 @@ int Critter::getCol() {
     return col;
 }
 
-//Returns breeding counter
-int Critter::getBreedingCounter() {
-    return breedingCounter;
-}
-
-//Takes an int to set the breeding counter (used to increment and reset counter)
-void Critter::setBreedingCounter(int newCounter) {
-    breedingCounter = newCounter;
-}
-
 //Returns true if ant, otherwise false
 bool Critter::getIsAnt() {
     return isAnt;
