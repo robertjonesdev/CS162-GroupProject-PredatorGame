@@ -33,11 +33,11 @@ int main()
 	cin >> numCols;
 	validateInt(numCols, 1, 100);
 
-	cout << "Please enter the number of Ants you'd like to start the game with: ";
+	cout << "Please enter the number of Ants you'd like to start the game with (1-" << (numRows * numCols - 1) << "): ";
 	cin >> numAnts;
 	validateInt(numAnts, 1, (numRows * numCols - 1));
 
-	cout << "Please enter the number of Doodlebugs you'd like to start the game with: ";
+	cout << "Please enter the number of Doodlebugs you'd like to start the game with: (1-" << (numRows * numCols - numAnts) << "): ";
 	cin >> numDoodles;
 	validateInt(numDoodles, 1, (numRows * numCols - numAnts));
 
