@@ -18,9 +18,9 @@ class Ant: public Critter
     Ant(int, int);
     void incrementCounters();
     void breed(Critter*** gameBoard, const int& numRows, const int& numCols);
-    void move(Critter*** gameBoard, const int& numRows, const int& numCols);  //takes the board as a parameter so it can check spaces
-    bool getIsDoodlebug();
+    void move(Critter*** gameBoard, const int& numRows, const int& numCols);
     bool getIsAnt();
+    bool getIsDoodlebug();
 };
 
 #endif

@@ -14,52 +14,12 @@
 using std::cout;
 using std::endl;
 
-
-//Constructors and Deconstructor
-Board::Board()
-{
-    this->numRows = MAX_ROWS;
-    this->numCols = MAX_COLS;
-    this->numAnts = STARTING_ANTS;
-    this->numDoodles = STARTING_DOODLEBUGS;
-    //instantiate the game board
-    gameBoard = new Critter**[MAX_ROWS];
-    for (int i = 0; i < MAX_ROWS; i++)
-    {
-        gameBoard[i] = new Critter*[MAX_COLS];
-    }
-
-    //initialize board to null pointers;
-    for(int i = 0; i < MAX_ROWS; i++)
-    {
-        for(int j = 0; j < MAX_COLS; j++)
-        {
-            gameBoard[i][j] = nullptr;
-        }
-    }
-
-    //randomly place all the starting doodlebugs
-    for (int counter = 0; counter < STARTING_DOODLEBUGS; counter++)
-    {
-        //picks random row/col, attempts to make Doodlebug
-        //if unsuccessful pick two more random row/col until success
-        while (!addDoodlebug(rand() % 20, rand() % 20));
-    }
-
-    //randomly place the all the starting ants
-    for (int counter = 0; counter < STARTING_ANTS; counter++)
-    {
-        //picks random row/col, attempts to make Ant
-        //if unsuccessful pick two more random row/col until success
-        while (!addAnt(rand() % 20, rand() % 20));
-    }
-}
 //Extra Credit Constructor
-Board::Board(int rows, int cols, int numAnts, int numDoodles) {
+Board::Board(int rows, int cols, int numAnts, int numDoodlebugs) {
     this->numRows = rows;
     this->numCols = cols;
     this->numAnts = numAnts;
-    this->numDoodles = numDoodles;
+    this->numDoodlebugs = numDoodlebugs;
     gameBoard = new Critter**[this->numRows];
 
     for (int i = 0; i < this->numRows; i++)
@@ -77,7 +37,7 @@ Board::Board(int rows, int cols, int numAnts, int numDoodles) {
     }
 
     //randomly place all the starting doodlebugs
-    for (int counter = 0; counter < this->numDoodles; counter++)
+    for (int counter = 0; counter < this->numDoodlebugs; counter++)
     {
         //picks random row/col, attempts to make Doodlebug
         //if unsuccessful pick two more random row/col until success
@@ -91,6 +51,12 @@ Board::Board(int rows, int cols, int numAnts, int numDoodles) {
         //if unsuccessful pick two more random row/col until success
         while (!addAnt(rand() % numRows, rand() % this->numCols));
     }
+
+    //print the starting board and information about the board
+    cout << '\n' << endl;
+    cout << "Created " << numRows << "x" << numCols << " board with " << numAnts << " Ants and " << numDoodlebugs << " Doodlebugs!" << endl;
+    cout << "*****Starting Board*****" << endl;
+    printBoard();
 };
 
 /*********************************************************************
@@ -120,7 +86,6 @@ Board::~Board()
 *********************************************************************/
 void Board::runGame(int numSteps)
 {
-    printBoard();
     while(numSteps > 0)
     {
         /*************************************************************************
@@ -169,8 +134,10 @@ void Board::runGame(int numSteps)
                 }
             }
         }
-        cout << "Finished doodlebug move" << endl;
+        cout << endl;
+        cout << "Finished Doodlebug move. Ants will move starting from this board:" << endl;
         printBoard();
+        cout << endl;
 
         for(int i = 0; i < numRows; i++) //ants move second
         {
@@ -204,7 +171,10 @@ void Board::runGame(int numSteps)
                 }
             }
         }
+        cout << endl;
+        cout << "*****Step " << numSteps << " completed!***** Here is the current board:" << endl;
         printBoard();
+        cout << endl;
         numSteps--;
     }
 }
@@ -217,6 +187,13 @@ void Board::runGame(int numSteps)
 void Board::printBoard()
 {
     //Top border
+    cout << "  ";
+    for (int i = 0; i < numCols; i++)
+    {
+        cout << i;
+    }
+    cout << endl;
+    cout << " ";
     cout.width(numCols + 2);
     cout.fill('-');
     cout << '-' << endl;
@@ -224,7 +201,7 @@ void Board::printBoard()
 
     for(int i = 0; i < numRows; i++)
     {
-        cout << "|";
+        cout << i << "|";
         for(int j = 0; j < numCols; j++)
         {
             if (gameBoard[i][j] == nullptr)
@@ -243,6 +220,7 @@ void Board::printBoard()
         cout << "|\n";
     }
     //Bottom border
+    cout << " ";
     cout.width(numCols + 2);
     cout.fill('-');
     cout << '-' << endl;
