@@ -21,12 +21,12 @@ class Critter
     enum Direction {UP, RIGHT, DOWN, LEFT};  //AW: used for movement
 
   public:
-    //Constructor & Deconstructor
+    //Constructor
     Critter(int, int);
 
     //Functions
-    virtual bool getIsDoodlebug();
     virtual bool getIsAnt();
+    virtual bool getIsDoodlebug();
     virtual bool starve() {};  //for doodlebug starving
     virtual void incrementCounters() = 0;  //adds 1 to the breeding counter, and also 1 to the starving counter for Doodlebugs
     virtual void breed(Critter*** gameBoard, const int& numRows, const int& numCols) = 0; //pure virtual function which will be overridden in child classes

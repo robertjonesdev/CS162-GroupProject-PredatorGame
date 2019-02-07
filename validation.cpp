@@ -1,3 +1,8 @@
+/*********************************************************************
+** Author: Andrew Wilson
+** Date: Jan 12, 2019
+** Description: Functions for input validation.
+*********************************************************************/
 #include <iostream>
 #include <string>
 #include <cctype>

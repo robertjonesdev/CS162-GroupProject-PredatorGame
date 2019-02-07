@@ -11,7 +11,8 @@
 
 //Critter constructor. Takes an int for the row axis and an int for the column axis
 //and sets breedingCounter to zero to start.
-Critter::Critter(int row, int col) {
+Critter::Critter(int row, int col) 
+{
     this->row = row;
     this->col = col;
     this->breedingCounter = 0;
@@ -20,11 +21,13 @@ Critter::Critter(int row, int col) {
 }
 
 //Returns true if ant, otherwise false
-bool Critter::getIsAnt() {
+bool Critter::getIsAnt() 
+{
     return this->isAnt;
 }
 
 //Returns true if doodlebug, otherwise false
-bool Critter::getIsDoodlebug() {
+bool Critter::getIsDoodlebug() 
+{
     return this->isDoodlebug;
 }

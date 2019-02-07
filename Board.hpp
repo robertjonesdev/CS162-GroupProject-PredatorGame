@@ -10,11 +10,6 @@
 
 #include "Critter.hpp"
 
-const int MAX_ROWS = 20;
-const int MAX_COLS = 20;
-const int STARTING_ANTS = 100;
-const int STARTING_DOODLEBUGS = 5;
-
 class Board
 {
     private:
@@ -22,12 +17,11 @@ class Board
         int numRows,
             numCols,
             numAnts,
-            numDoodles;
+            numDoodlebugs;
 
     public:
         //Constructors and Deconstructor
-        Board();
-        Board(int rows, int cols, int ants, int doodles);  //AW: constructor for extra credit, blank for now
+        Board(int rows, int cols, int ants, int doodlebugs);
         virtual ~Board();
 
         //Functions
