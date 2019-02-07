@@ -222,6 +222,10 @@ void Doodlebug::move(Critter*** gameBoard, const int& numRows, const int& numCol
 							gameBoard[this->row][this->col] = nullptr;
 							this->row--;
 						}
+						else
+						{
+							std::cout << "No ants to eat. Can't move to [" << this->row -1 << "][" << this->col << "] because it has a Doodlebug. Staying in place." << std::endl;
+						}						
 					}
 					else 
 					{
@@ -241,6 +245,10 @@ void Doodlebug::move(Critter*** gameBoard, const int& numRows, const int& numCol
 							gameBoard[this->row][this->col] = nullptr;
 							this->col++;
 						}
+						else
+						{
+							std::cout << "No ants to eat. Can't move to [" << this->row << "][" << this->col + 1<< "] because it has a Doodlebug. Staying in place." << std::endl;
+						}						
 					}
 					else 
 					{
@@ -260,6 +268,10 @@ void Doodlebug::move(Critter*** gameBoard, const int& numRows, const int& numCol
 							gameBoard[this->row][this->col] = nullptr;
 							this->row++;
 						}
+						else
+						{
+							std::cout << "No ants to eat. Can't move to [" << this->row + 1<< "][" << this->col<< "] because it has a Doodlebug. Staying in place." << std::endl;
+						}						
 					}
 					else 
 					{
@@ -278,6 +290,10 @@ void Doodlebug::move(Critter*** gameBoard, const int& numRows, const int& numCol
 							gameBoard[this->row][this->col - 1] = this;
 							gameBoard[this->row][this->col] = nullptr;
 							this->col--;
+						}
+						else
+						{
+							std::cout << "No ants to eat. Can't move to [" << this->row << "][" << this->col - 1<< "] because it has a Doodlebug. Staying in place." << std::endl;
 						}
 					}
 					else 
