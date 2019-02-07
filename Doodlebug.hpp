@@ -11,15 +11,16 @@
 
 #include "Critter.hpp"
 
-class Doodlebug: public Critter {
+class Doodlebug: public Critter
+{
   private:
     int starvingCounter;
 
   public:
     Doodlebug(int, int);
     void incrementCounters();
-    void breed(Critter*** gameBoard);
-    void move(Critter*** gameBoard);
+    void breed(Critter*** gameBoard, const int& numRows, const int& numCols);
+    void move(Critter*** gameBoard, const int& numRows, const int& numCols);
     bool starve();
     bool getIsDoodlebug();
     bool getIsAnt();

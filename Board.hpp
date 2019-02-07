@@ -1,7 +1,7 @@
 /*********************************************************************
 ** Program name:  Predator-Prey Game (Group Project, CS 162-400, Winter 2019)
-** Author:        Group 16
-** Date:          February 2, 2019
+** Author:       Group 16 (LB, LB, RJ, DS, AW)
+** Date:         February 2, 2019
 ** Description:   Board.hpp, Board Class Definition
 **********************************************************************/
 
@@ -15,7 +15,6 @@ const int MAX_COLS = 20;
 const int STARTING_ANTS = 100;
 const int STARTING_DOODLEBUGS = 5;
 
-
 class Board
 {
     private:
@@ -23,7 +22,7 @@ class Board
         int numRows,
             numCols,
             numAnts,
-            numDoodles; 
+            numDoodles;
 
     public:
         //Constructors and Deconstructor

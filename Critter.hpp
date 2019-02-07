@@ -9,28 +9,28 @@
 #ifndef CRITTER_HPP
 #define CRITTER_HPP
 
-
-class Critter {
+class Critter
+{
   protected:
-    int row;
-    int col;
-    int breedingCounter;
-    bool hasMovedToday;
+    int row,
+        col,
+        breedingCounter;
+    bool hasMovedToday,
+         isAnt,
+         isDoodlebug;
     enum Direction {UP, RIGHT, DOWN, LEFT};  //AW: used for movement
-    bool isAnt;
-    bool isDoodlebug;
 
   public:
-    Critter();  //AW: default constructor, probably unused.
+    //Constructor & Deconstructor
     Critter(int, int);
-    int getRow();
-    int getCol();
+
+    //Functions
     virtual bool getIsDoodlebug();
     virtual bool getIsAnt();
     virtual bool starve() {};  //for doodlebug starving
     virtual void incrementCounters() = 0;  //adds 1 to the breeding counter, and also 1 to the starving counter for Doodlebugs
-    virtual void breed(Critter*** gameBoard) = 0; //pure virtual function which will be overridden in child classes
-    virtual void move(Critter*** gameBoard) = 0; //pure virtual function which will be overridden in child classes
+    virtual void breed(Critter*** gameBoard, const int& numRows, const int& numCols) = 0; //pure virtual function which will be overridden in child classes
+    virtual void move(Critter*** gameBoard, const int& numRows, const int& numCols) = 0; //pure virtual function which will be overridden in child classes
 };
 
 #endif

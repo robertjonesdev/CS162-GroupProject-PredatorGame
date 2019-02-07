@@ -10,14 +10,15 @@
 #define ANT_HPP
 #include "Critter.hpp"
 
-class Ant: public Critter {
+class Ant: public Critter
+{
   private:
 
   public:
     Ant(int, int);
     void incrementCounters();
-    void breed(Critter*** gameBoard);
-    void move(Critter*** gameBoard);  //takes the board as a parameter so it can check spaces
+    void breed(Critter*** gameBoard, const int& numRows, const int& numCols);
+    void move(Critter*** gameBoard, const int& numRows, const int& numCols);  //takes the board as a parameter so it can check spaces
     bool getIsDoodlebug();
     bool getIsAnt();
 };

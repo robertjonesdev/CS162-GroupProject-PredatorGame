@@ -6,7 +6,6 @@
 **********************************************************************/
 
 #include <iostream>   //Console input and output
-#include <iomanip>    //Console output formatting
 #include "Board.hpp"
 #include "Critter.hpp"
 #include "Doodlebug.hpp"
@@ -19,7 +18,10 @@ using std::endl;
 //Constructors and Deconstructor
 Board::Board()
 {
-
+    this->numRows = MAX_ROWS;
+    this->numCols = MAX_COLS;
+    this->numAnts = STARTING_ANTS;
+    this->numDoodles = STARTING_DOODLEBUGS;
     //instantiate the game board
     gameBoard = new Critter**[MAX_ROWS];
     for (int i = 0; i < MAX_ROWS; i++)
@@ -39,35 +41,36 @@ Board::Board()
     //randomly place all the starting doodlebugs
     for (int counter = 0; counter < STARTING_DOODLEBUGS; counter++)
     {
-        while (!addDoodlebug(rand() % 20, rand() % 20));  //picks random row/col, attempts to make Doodlebug
-                                                          //if unsuccessful pick two more random row/col until success
+        //picks random row/col, attempts to make Doodlebug
+        //if unsuccessful pick two more random row/col until success
+        while (!addDoodlebug(rand() % 20, rand() % 20));
     }
 
     //randomly place the all the starting ants
     for (int counter = 0; counter < STARTING_ANTS; counter++)
     {
-        while (!addAnt(rand() % 20, rand() % 20));  //picks random row/col, attempts to make Ant
-                                                    //if unsuccessful pick two more random row/col until success
+        //picks random row/col, attempts to make Ant
+        //if unsuccessful pick two more random row/col until success
+        while (!addAnt(rand() % 20, rand() % 20));
     }
-    printBoard();
-
 }
-//Extra Credit Constructor 
+//Extra Credit Constructor
 Board::Board(int rows, int cols, int numAnts, int numDoodles) {
-    numRows = rows;
-    numCols = cols;
+    this->numRows = rows;
+    this->numCols = cols;
     this->numAnts = numAnts;
     this->numDoodles = numDoodles;
-    gameBoard = new Critter**[numRows];
+    gameBoard = new Critter**[this->numRows];
+
     for (int i = 0; i < this->numRows; i++)
     {
-        gameBoard[i] = new Critter*[numCols];
+        gameBoard[i] = new Critter*[this->numCols];
     }
 
     //initialize board to null pointers;
-    for(int i = 0; i < numRows; i++)
+    for(int i = 0; i < this->numRows; i++)
     {
-        for(int j = 0; j < numCols; j++)
+        for(int j = 0; j < this->numCols; j++)
         {
             gameBoard[i][j] = nullptr;
         }
@@ -76,29 +79,25 @@ Board::Board(int rows, int cols, int numAnts, int numDoodles) {
     //randomly place all the starting doodlebugs
     for (int counter = 0; counter < this->numDoodles; counter++)
     {
-        while (!addDoodlebug(rand() % numRows, rand() % numCols));  //picks random row/col, attempts to make Doodlebug
-                                                          //if unsuccessful pick two more random row/col until success
+        //picks random row/col, attempts to make Doodlebug
+        //if unsuccessful pick two more random row/col until success
+        while (!addDoodlebug(rand() % numRows, rand() % this->numCols));
     }
 
     //randomly place the all the starting ants
     for (int counter = 0; counter < this->numAnts; counter++)
     {
-        while (!addAnt(rand() % numRows, rand() % numCols));  //picks random row/col, attempts to make Ant
-                                                    //if unsuccessful pick two more random row/col until success
+        //picks random row/col, attempts to make Ant
+        //if unsuccessful pick two more random row/col until success
+        while (!addAnt(rand() % numRows, rand() % this->numCols));
     }
-    printBoard();
-}; 
-
- //AW: constructor for extra credit, blank for now
-
-
+};
 
 /*********************************************************************
-** Deconstructor EXTRA CREDIT
+** Deconstructor capable of handling extra credit.
 ** Deconstructor deletes all dynamically created objects in the gameBoard Array.
 ** Tested with Valgrind 2/2/2019 7:49PM
 *********************************************************************/
-/*
 Board::~Board()
 {
     //Deallocate memory for the dynamic arrow.
@@ -113,66 +112,15 @@ Board::~Board()
     delete [] gameBoard;
     gameBoard = nullptr;
 }
-*/
-/*********************************************************************
-** Deconstructor
-** Deconstructor deletes all dynamically created objects in the gameBoard Array.
-** Tested with Valgrind 2/2/2019 7:49PM
-*********************************************************************/  
-
-Board::~Board()
-{
-    //Deallocate memory for the dynamic arrow.
-    for (int i = 0; i < MAX_ROWS; i++)
-    {
-        for(int j = 0; j < MAX_COLS; j++)
-        {
-            delete gameBoard[i][j];
-        }
-        delete [] gameBoard[i];
-    }
-    delete [] gameBoard;
-    gameBoard = nullptr;
-} 
 
 //Functions
 /*********************************************************************
-** runGame() EXTRA CREDIT
-** 
-*********************************************************************/
-/*
-void Board::runGame(int numSteps)
-{
-    while(numSteps > 0)
-    {
-        for(int i = 0; i < numRows; i++)
-        {
-            for(int j = 0; j < numCols; j++)  //each move, iterate through the board
-            {
-                if(gameBoard[i][j] == nullptr) //we need to keep this test, because if we don't skip the nullptrs we try to deference them and that's bad
-                {
-                    cout << "Nothing here" << endl;  //for testing, remove later
-                }
-                else if(gameBoard[i][j]->getIsAnt())
-                {
-                    cout << "This is an ant" << endl;  //for testing, remove later
-                    gameBoard[i][j]->move(gameBoard);
-                }
-            }
-            cout << "Finished row " << i << endl;
-            printBoard();
-        }
-        printBoard();
-        numSteps--;  
-    }
-}
-*/
-/*********************************************************************
-** runGame()
-**ORIGINAL
+** runGame() capable of handling extra credit.
+**
 *********************************************************************/
 void Board::runGame(int numSteps)
 {
+    printBoard();
     while(numSteps > 0)
     {
         /*************************************************************************
@@ -180,8 +128,8 @@ void Board::runGame(int numSteps)
         ** of a Doodlebug which would give a seg fault for calling ->breed()
         ** directly after. (Robert)
         **********************************************************************/
-        for(int i = 0; i < MAX_ROWS; i++){//doodlebugs move first
-            for(int j = 0; j < MAX_COLS; j++)  {//each move, iterate through the board
+        for(int i = 0; i < numRows; i++){//doodlebugs move first
+            for(int j = 0; j < numCols; j++)  {//each move, iterate through the board
                 //if(gameBoard[i][j] == nullptr) //we need to keep this test, because if we don't skip the nullptrs we try to deference them and that's bad
                 if(gameBoard[i][j] != nullptr && gameBoard[i][j]->getIsDoodlebug())  //These can be combined since the left-hand side will be evaluated first.
                 {
@@ -190,29 +138,29 @@ void Board::runGame(int numSteps)
                 }
             }
         }
-        for(int i = 0; i < MAX_ROWS; i++){//doodlebugs move first
-            for(int j = 0; j < MAX_COLS; j++)  {//each move, iterate through the board
+        for(int i = 0; i < numRows; i++){//doodlebugs move first
+            for(int j = 0; j < numCols; j++)  {//each move, iterate through the board
                 if(gameBoard[i][j] != nullptr && gameBoard[i][j]->getIsDoodlebug())
                 {
-                    cout << "Trying to move [" << i << "][" << j << "]"  << endl;
-                    gameBoard[i][j]->move(gameBoard);
+                    //cout << "Trying to move [" << i << "][" << j << "]"  << endl;
+                    gameBoard[i][j]->move(gameBoard, numRows, numCols);
                 }
             }
         }
-        for(int i = 0; i < MAX_ROWS; i++){//doodlebugs move first
-            for(int j = 0; j < MAX_COLS; j++)  {//each move, iterate through the board
+        for(int i = 0; i < numRows; i++){//doodlebugs move first
+            for(int j = 0; j < numCols; j++)  {//each move, iterate through the board
                 if(gameBoard[i][j] != nullptr && gameBoard[i][j]->getIsDoodlebug())
                 {
-                    cout << "Trying to breed [" << i << "][" << j << "]"  << endl;
-                    gameBoard[i][j]->breed(gameBoard);
+                    //cout << "Trying to breed [" << i << "][" << j << "]"  << endl;
+                    gameBoard[i][j]->breed(gameBoard, numRows, numCols);
                 }
             }
         }
-        for(int i = 0; i < MAX_ROWS; i++){//doodlebugs move first
-            for(int j = 0; j < MAX_COLS; j++)  {//each move, iterate through the board
+        for(int i = 0; i < numRows; i++){//doodlebugs move first
+            for(int j = 0; j < numCols; j++)  {//each move, iterate through the board
                 if(gameBoard[i][j] != nullptr && gameBoard[i][j]->getIsDoodlebug())
                 {
-                    cout << "Trying to starve [" << i << "][" << j << "]"  << endl;
+                    //cout << "Trying to starve [" << i << "][" << j << "]"  << endl;
                     if (gameBoard[i][j]->starve())
                     {
                         delete gameBoard[i][j];
@@ -223,9 +171,10 @@ void Board::runGame(int numSteps)
         }
         cout << "Finished doodlebug move" << endl;
         printBoard();
-        for(int i = 0; i < MAX_ROWS; i++) //ants move second
+
+        for(int i = 0; i < numRows; i++) //ants move second
         {
-            for(int j = 0; j < MAX_COLS; j++)  //each move, iterate through the board
+            for(int j = 0; j < numCols; j++)  //each move, iterate through the board
             {
                 if(gameBoard[i][j] != nullptr && gameBoard[i][j]->getIsAnt()) //These can be combined since the left-hand side will be evaluated first.
                 {
@@ -233,25 +182,25 @@ void Board::runGame(int numSteps)
                 }
             }
         }
-        for(int i = 0; i < MAX_ROWS; i++) //ants move second
+        for(int i = 0; i < numRows; i++) //ants move second
         {
-            for(int j = 0; j < MAX_COLS; j++)  //each move, iterate through the board
+            for(int j = 0; j < numCols; j++)  //each move, iterate through the board
             {
                 if(gameBoard[i][j] != nullptr && gameBoard[i][j]->getIsAnt()) //These can be combined since the left-hand side will be evaluated first.
                 {
-                    cout << "Ant trying to moved from [" << i << "][" << j << "]" << endl;  //for testing, remove later
-                    gameBoard[i][j]->move(gameBoard);
+                    //cout << "Ant trying to moved from [" << i << "][" << j << "]" << endl;  //for testing, remove later
+                    gameBoard[i][j]->move(gameBoard, numRows, numCols);
                 }
             }
         }
-        for(int i = 0; i < MAX_ROWS; i++) //ants move second
+        for(int i = 0; i < numRows; i++) //ants move second
         {
-            for(int j = 0; j < MAX_COLS; j++)  //each move, iterate through the board
+            for(int j = 0; j < numCols; j++)  //each move, iterate through the board
             {
                 if(gameBoard[i][j] != nullptr && gameBoard[i][j]->getIsAnt())
                 {
-                    cout << "Ant trying to breed from [" << i << "][" << j << "]" << endl;  //for testing, remove later
-                    gameBoard[i][j]->breed(gameBoard);
+                    //cout << "Ant trying to breed from [" << i << "][" << j << "]" << endl;  //for testing, remove later
+                    gameBoard[i][j]->breed(gameBoard, numRows, numCols);
                 }
             }
         }
@@ -262,9 +211,9 @@ void Board::runGame(int numSteps)
 
 /*********************************************************************
 ** printBoard() EXTRA CREDIT
-** This function prints the board to the console. 
+** This function prints the board to the console.
 *********************************************************************/
-/*
+
 void Board::printBoard()
 {
     //Top border
@@ -295,46 +244,6 @@ void Board::printBoard()
     }
     //Bottom border
     cout.width(numCols + 2);
-    cout.fill('-');
-    cout << '-' << endl;
-    cout.fill(' ');
-}
-*/
-/*********************************************************************
-** printBoard() ORIGINAL
-** This function prints the board to the console.
-*********************************************************************/
-
-void Board::printBoard()
-{
-    //Top border
-    cout.width(MAX_COLS + 2);
-    cout.fill('-');
-    cout << '-' << endl;
-    cout.fill(' ');
-
-    for(int i = 0; i < MAX_ROWS; i++)
-    {
-        cout << "|";
-        for(int j = 0; j < MAX_COLS; j++)
-        {
-            if (gameBoard[i][j] == nullptr)
-            { //it's empty
-                cout << " ";
-            }
-            else if (gameBoard[i][j]->getIsDoodlebug())
-            { //Is a doodlebug object.
-                cout << "X";
-            }
-            else
-            { //Is an ant.
-                cout << "O";
-            }
-        }
-        cout << "|\n";
-    }
-    //Bottom border
-    cout.width(MAX_COLS + 2);
     cout.fill('-');
     cout << '-' << endl;
     cout.fill(' ');
