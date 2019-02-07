@@ -71,7 +71,9 @@ void Doodlebug::breed(Critter*** gameBoard, const int& numRows, const int& numCo
 							    this->breedingCounter = 0;  //reset breeding counter
 								bred = true;  //exit outer loop condition
 								upCheck = leftCheck = downCheck = rightCheck = true; //force exit of inner loop
-                                std::cout << "Doodlebug bred up!" << std::endl;
+                                std::cout << "Doodlebug [" << this->row << "][" << this->col << 
+                                          "] bred a new Doodlebug UP at [" << this->row - 1 << "][" << this->col << "]." << std::endl;
+                                std::cout << "Breeding counter updated to " << this->breedingCounter << "." << std::endl;                                          
 							}
 						}
                         break;
@@ -88,7 +90,9 @@ void Doodlebug::breed(Critter*** gameBoard, const int& numRows, const int& numCo
         						this->breedingCounter = 0;  //reset breeding counter
         						bred = true;  //exit outer loop condition
         						upCheck = leftCheck = downCheck = rightCheck = true; //force exit of inner loop
-                                std::cout << "Doodlebug bred right!" << std::endl;
+                                std::cout << "Doodlebug [" << this->row << "][" << this->col << 
+                                          "] bred a new Doodlebug RIGHT at [" << this->row << "][" << this->col + 1 << "]." << std::endl;
+                                std::cout << "Breeding counter updated to " << this->breedingCounter << "." << std::endl;
     						}
 						}
                         break;
@@ -105,7 +109,9 @@ void Doodlebug::breed(Critter*** gameBoard, const int& numRows, const int& numCo
         						this->breedingCounter = 0;  //reset breeding counter
         						bred = true;  //exit outer loop condition
         						upCheck = leftCheck = downCheck = rightCheck = true; //force exit of inner loop
-                                std::cout << "Doodlebug bred down!" << std::endl;
+                                std::cout << "Doodlebug [" << this->row << "][" << this->col << 
+                                          "] bred a new Doodlebug DOWN at [" << this->row + 1 << "][" << this->col << "]." << std::endl;
+                                std::cout << "Breeding counter updated to " << this->breedingCounter << "." << std::endl;
     						}
 						}
                         break;
@@ -122,7 +128,9 @@ void Doodlebug::breed(Critter*** gameBoard, const int& numRows, const int& numCo
         						this->breedingCounter = 0;  //reset breeding counter
         						bred = true;  //exit outer loop condition
         						upCheck = leftCheck = downCheck = rightCheck = true; //force exit of inner loop
-                                std::cout << "Doodlebug bred left!" << std::endl;
+                                std::cout << "Doodlebug [" << this->row << "][" << this->col << 
+                                          "] bred a new Doodlebug LEFT at [" << this->row << "][" << this->col - 1 << "]." << std::endl;
+                                std::cout << "Breeding counter updated to " << this->breedingCounter << "." << std::endl;
     						}
                         }
                         break;
@@ -135,6 +143,9 @@ void Doodlebug::breed(Critter*** gameBoard, const int& numRows, const int& numCo
 				bred = true; //break out of loop, but don't reset BreedingCounter.
 			}
 		}
+	}
+	else {
+		std::cout << "Doodlebug [" << this->row << "][" << this->col << "] is not ready to breed." << std::endl;
 	}
 }
 

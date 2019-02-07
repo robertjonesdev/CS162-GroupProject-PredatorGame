@@ -172,7 +172,7 @@ void Board::runGame(int numSteps)
             }
         }
         cout << endl;
-        cout << "*****Step " << numSteps << " completed!***** Here is the current board:" << endl;
+        cout << "*****Step completed! " << numSteps - 1 << " steps remaining.***** Here is the current board:" << endl;
         printBoard();
         cout << endl;
         numSteps--;
