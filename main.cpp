@@ -33,13 +33,13 @@ int main()
 	cin >> numCols;
 	validateInt(numCols, 1, 100);
 
-	cout << "Please enter the number of Ants you'd like to start the game with (1-" << (numRows * numCols - 1) << "): ";
+	cout << "Please enter the number of Ants you'd like to start the game with (0-" << (numRows * numCols) << "): ";
 	cin >> numAnts;
-	validateInt(numAnts, 1, (numRows * numCols - 1));
+	validateInt(numAnts, 0, (numRows * numCols));
 
-	cout << "Please enter the number of Doodlebugs you'd like to start the game with: (1-" << (numRows * numCols - numAnts) << "): ";
+	cout << "Please enter the number of Doodlebugs you'd like to start the game with: (0-" << (numRows * numCols - numAnts) << "): ";
 	cin >> numDoodles;
-	validateInt(numDoodles, 1, (numRows * numCols - numAnts));
+	validateInt(numDoodles, 0, (numRows * numCols - numAnts));
 
 	//AW: 5000 is a completely arbitrary limit, we can change it
     cout << "Please enter the number of steps to run the simulation (1-5000): ";
