@@ -1,7 +1,7 @@
 /*********************************************************************
 ** Program name:  Predator-Prey Game (Group Project, CS 162-400, Winter 2019)
-** Author:        Group 16
-** Date:          February 2, 2019
+** Author:       Group 16 (LB, LB, RJ, DS, AW)
+** Date:         February 2, 2019
 ** Description:   Board.hpp, Board Class Definition
 **********************************************************************/
 
@@ -10,12 +10,6 @@
 
 #include "Critter.hpp"
 
-const int MAX_ROWS = 20;
-const int MAX_COLS = 20;
-const int STARTING_ANTS = 100;
-const int STARTING_DOODLEBUGS = 5;
-
-
 class Board
 {
     private:
@@ -23,12 +17,16 @@ class Board
         int numRows,
             numCols,
             numAnts,
-            numDoodles; 
+            numDoodlebugs,
+            stepNumber,
+            deadDoodles,
+            deadAnts,
+            newAnts,
+            newDoodles;
 
     public:
         //Constructors and Deconstructor
-        Board();
-        Board(int rows, int cols, int ants, int doodles);  //AW: constructor for extra credit, blank for now
+        Board(int rows, int cols, int ants, int doodlebugs);
         virtual ~Board();
 
         //Functions
@@ -36,7 +34,6 @@ class Board
         void printBoard();
         bool addAnt(int, int);
         bool addDoodlebug(int, int);
-        void increaseAge();
-        void critterAttach();
+        void gameInfo();
 };
 #endif

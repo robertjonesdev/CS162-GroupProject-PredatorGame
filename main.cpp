@@ -1,3 +1,10 @@
+/***************************************************************
+** Program name: main.cpp (part of CS162 Group Project)
+** Author:       Group 16 (LB, LB, RJ, DS, AW)
+** Date:         February 6, 2019
+** Description:  This is the main file that prompts the user to
+**               create a Board object and runs the simulation.
+***************************************************************/
 #include <iostream>
 #include <stdlib.h> //rand
 #include <time.h>  //time
@@ -14,60 +21,67 @@ int main()
 		numRows,
 		numCols,
 		numAnts,
-		numDoodles; 
+		numDoodlebugs;
 	int choice = 0;
 
 	srand(time(NULL));
 
-	//AW: greet and prompt the user for number of steps.
-	//AW: we can make this into a separate function if we want to keep main nice and tidy
-    cout << "WELCOME TO THE PREDATOR/PREY SIMULATION" << endl << endl;
-	/* EXTRACREDIT
-	cout << "Please enter the number of number of rows on the board (1-100)" << endl;
+	//Greet the user and note that we implemented the extra credit
+	cout << "\n\tWELCOME TO THE PREDATOR/PREY SIMULATION"
+		 << "\n\t---------------------------------------"
+		 << "\n\nExtra credit is implemented.\n" << endl;
+
+	//Get the number of rows from the user
+	cout << "Please enter the number of number of rows on the board (1-100): ";
 	cin >> numRows;
 	validateInt(numRows, 1, 100);
-	cout << "Please enter the number of columns on the board (1-100)" << endl;
+
+	//Get the number of columns from the user
+	cout << "Please enter the number of columns on the board (1-100): ";
 	cin >> numCols;
 	validateInt(numCols, 1, 100);
-	cout << "Please enter the number of Ants you'd like to start the game with" << endl;
+
+	//Get the number of Ants from the user (must be less than number of rows * number of columns)
+	cout << "Please enter the number of Ants you'd like to start the game with (0-" << (numRows * numCols) << "): ";
 	cin >> numAnts;
-	validateInt(numAnts, 1, (numRows * numCols - 1));
-	cout << "Please enter the number of Doodlebugs you'd like to start the game with" << endl;
-	cin >> numDoodles;
-	validateInt(numDoodles, 1, (numRows * numCols - numAnts));
-	*/
-	//AW: 5000 is a completely arbitrary limit, we can change it
-    cout << "Please enter the number of steps to run the simulation (1-5000): " << endl << endl;
+	validateInt(numAnts, 0, (numRows * numCols));
+
+	//Get the number of Doodlebugs from the user (must be less than (number of rows * number of columns) - number of Ants)
+	cout << "Please enter the number of Doodlebugs you'd like to start the game with: (0-" << (numRows * numCols - numAnts) << "): ";
+	cin >> numDoodlebugs;
+	validateInt(numDoodlebugs, 0, (numRows * numCols - numAnts));
+
+	//Get the number of teps to run the simulation from the user
+	cout << "Please enter the number of steps to run the simulation (1-5000): ";
 	cin >> numSteps;
 	validateInt(numSteps, 1, 5000);
 
-
-	//EXTRA CREDIT CONSTRUCTOR
-	//Board myGame(numRows, numCols, numAnts, numDoodles);
-	Board myGame;
+	//Create the game.
+	Board myGame(numRows, numCols, numAnts, numDoodlebugs);
 	myGame.runGame(numSteps);
-	myGame.printBoard();
 
-    //LB: After the initial simulation is complete, ask the user if they want to continue (while maintaining board state)
-    do {
-	  cout << numSteps << " steps completed. Would you like to continue running the simulation?" << endl;
-	  cout << "1. Yes" << endl;
-	  cout << "2. No" << endl << endl;
-	  cin >> choice;
-	  validateInt(choice, 1, 2);
+	//After the initial simulation is complete, ask the user if they want to continue (while maintaining board state)
+	do 
+	{
+		cout << numSteps << " steps completed! Would you like to continue running the simulation?\n"
+		<< "1. Yes\n"
+		<< "2. No\n"
+		<< "Enter choice: ";
+		cin >> choice;
+		validateInt(choice, 1, 2);
 
-	  if (choice == 1) {
-	  	numSteps = 0;
+		if (choice == 1) 
+		{
+			numSteps = 0;
 
-	  	cout << "Please enter the number of steps to run to continue the simulation (1-5000): " << endl << endl;
-	  	cin >> numSteps;
-	  	validateInt(numSteps, 1, 5000);
+			cout << "Please enter the number of steps to run to continue the simulation (1-5000): ";
+			cin >> numSteps;
+			validateInt(numSteps, 1, 5000);
 
-	    myGame.runGame(numSteps);
-	    myGame.printBoard();
-	  }
+			myGame.runGame(numSteps);
+		}
 
-    } while (choice !=2);
+	} while (choice !=2);
 
 	return 0;
 }
