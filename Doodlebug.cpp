@@ -16,7 +16,7 @@
 **               getDeadDoodlebugs:static int
 **               resetStaticCounters:void
 ***************************************************************/
-#include <cstdlib>     //Randon number generation
+#include <cstdlib>     		//Randon number generation
 #include <iostream>         //Console output
 #include "Doodlebug.hpp"
 #include "Board.hpp"
@@ -208,7 +208,7 @@ void Doodlebug::move(Critter*** gameBoard, const int& numRows, const int& numCol
     			delete gameBoard[this->row - 1][this->col];  //delete the ant
     			gameBoard[this->row - 1][this->col] = this;  //move into its space
     			gameBoard[this->row][this->col] = nullptr;   //set old space to nullptr
-    			this->row--;  //update critter row
+    			this->row--;  							     //update critter row
     			hasEaten = true;
                 starvingCounter = 0;
     			//std::cout << "Doodlebug moved to [" << this->row << "][" << this->col << "] and ate the Ant who was there." << std::endl;
@@ -358,6 +358,9 @@ void Doodlebug::move(Critter*** gameBoard, const int& numRows, const int& numCol
 				}
 			}
 		}
+		//Set the flag for the Ant that it is has moved already during the turn.
+		//In the case the ant moves to the right or down, then the Board iteration
+		//will not move it again.
 		this->hasMovedToday = true;
 	}
 }

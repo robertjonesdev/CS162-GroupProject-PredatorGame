@@ -74,8 +74,12 @@ void Ant::breed(Critter*** gameBoard, const int& numRows, const int& numCols)
                     {
                         //std::cout << "Trying to breed up!" << std::endl;  //for testing, remove later
                         upCheck = true;
-                        if (this->row != 0) {  //if we're in the top row, do nothing.
-                            if (gameBoard[this->row - 1][this->col] == nullptr) {  //if the space is unoccupied breed
+                        //Edge guard: if we're in the top row, do nothing.
+                        if (this->row != 0)
+                        {
+                            //If the space is unoccupied then breed
+                            if (gameBoard[this->row - 1][this->col] == nullptr)
+                            {
                                 gameBoard[this->row - 1][this->col] = new Ant(this->row - 1, this->col);  //make a new doodlebug there
                                 this->breedingCounter = 0;  //reset breeding counter
                                 bred = true;  //exit outer loop condition
@@ -89,8 +93,12 @@ void Ant::breed(Critter*** gameBoard, const int& numRows, const int& numCols)
                     {
                         //std::cout << "Trying to breed right!" << std::endl;  //for testing, remove later
                         rightCheck = true;
-                        if (this->col != numCols - 1) {  //if we're in the right column, do nothing.
-                            if (gameBoard[this->row][this->col + 1] == nullptr) {  //if the space is unoccupied breed
+                        //Edge guard: if we're in the right column, do nothing.
+                        if (this->col != numCols - 1)
+                        {
+                            //If the space is unoccupied then breed
+                            if (gameBoard[this->row][this->col + 1] == nullptr)
+                            {
                                 gameBoard[this->row][this->col + 1] = new Ant(this->row, this->col + 1);  //make a new doodlebug there
                                 this->breedingCounter = 0;  //reset breeding counter
                                 bred = true;  //exit outer loop condition
@@ -104,8 +112,12 @@ void Ant::breed(Critter*** gameBoard, const int& numRows, const int& numCols)
                     {
                         //std::cout << "Trying to breed down!" << std::endl;  //for testing, remove later
                         downCheck = true;
-                        if (this->row != numRows - 1) {  //if we're in the bottom row, do nothing.
-                            if (gameBoard[this->row + 1][this->col] == nullptr) {  //if the space is unoccupied breed
+                        //Edge guard: f we're in the bottom row, do nothing.
+                        if (this->row != numRows - 1)
+                        {
+                            //if the space is unoccupied breed
+                            if (gameBoard[this->row + 1][this->col] == nullptr)
+                            {
                                 gameBoard[this->row + 1][this->col] = new Ant(this->row + 1, this->col);  //make a new doodlebug there
                                 this->breedingCounter = 0;  //reset breeding counter
                                 bred = true;  //exit outer loop condition
@@ -119,8 +131,12 @@ void Ant::breed(Critter*** gameBoard, const int& numRows, const int& numCols)
                     {
                         //std::cout << "Trying to breed left!" << std::endl;  //for testing, remove later
                         leftCheck = true;
-                        if (this->col != 0) {  //if we're in the left column, do nothing.
-                            if (gameBoard[this->row][this->col - 1] == nullptr) {  //if the space is unoccupied breed
+                        //Edge guard: if we're in the left column, do nothing.
+                        if (this->col != 0)
+                        {
+                            //if the space is unoccupied then breed
+                            if (gameBoard[this->row][this->col - 1] == nullptr)
+                            {
                                 gameBoard[this->row][this->col - 1] = new Ant(this->row, this->col - 1);  //make a new doodlebug there
                                 this->breedingCounter = 0;  //reset breeding counter
                                 bred = true;  //exit outer loop condition
@@ -169,10 +185,13 @@ void Ant::move(Critter*** gameBoard, const int& numRows, const int& numCols)
         case UP:
         {
             //std::cout << "Trying to move up!" << std::endl;  //for testing, remove later
+
+            //Edge guard: if we're in the top row, do nothing.
             if (this->row != 0)
-            {  //if we're in the top row, do nothing.
+            {
+                //if the space is unoccupied, move there
                 if (gameBoard[this->row - 1][this->col] == nullptr)
-                {  //if the space is unoccupied, move
+                {
                     gameBoard[this->row - 1][this->col] = this;
                     gameBoard[this->row][this->col] = nullptr;
                     this->row--;
@@ -184,10 +203,13 @@ void Ant::move(Critter*** gameBoard, const int& numRows, const int& numCols)
         case RIGHT:
         {
             //std::cout << "Trying to move right!" << std::endl;  //for testing, remove later
+
+            //Edge guard: if we're in the right column, do nothing.
             if (this->col != numCols - 1)
-            {  //if we're in the right column, do nothing.
+            {
+                //if the space is unoccupied, move there
                 if(gameBoard[this->row][this->col + 1] == nullptr)
-                {  //if the space is unoccupied, move
+                {
                     gameBoard[this->row][this->col + 1] = this;
                     gameBoard[this->row][this->col] = nullptr;
                     this->col++;
@@ -199,10 +221,13 @@ void Ant::move(Critter*** gameBoard, const int& numRows, const int& numCols)
         case DOWN:
         {
             //std::cout << "Trying to move down!" << std::endl;  //for testing, remove later
+
+            //Edge guard: If we're in the bottom row, do nothing.
             if (this->row != numRows - 1)
-            {  //if we're in the bottom row, do nothing.
+            {
+                //If the space is unoccupied, move there
                 if (gameBoard[this->row + 1][this->col] == nullptr)
-                {  //if the space is unoccupied, move
+                {
                     gameBoard[this->row + 1][this->col] = this;
                     gameBoard[this->row][this->col] = nullptr;
                     this->row++;
@@ -214,10 +239,13 @@ void Ant::move(Critter*** gameBoard, const int& numRows, const int& numCols)
         case LEFT:
         {
             //std::cout << "Trying to move left!" << std::endl;  //for testing, remove later
+
+            //Edge guard: If we're in the left column, do nothing.
             if (this->col != 0)
-            {  //if we're in the left column, do nothing.
+            {
+                //If the space is unoccupied, move there
                 if (gameBoard[this->row][this->col - 1] == nullptr)
-                {  //if the space is unoccupied, move
+                {
                     gameBoard[this->row][this->col - 1] = this;
                     gameBoard[this->row][this->col] = nullptr;
                     this->col--;
@@ -227,6 +255,9 @@ void Ant::move(Critter*** gameBoard, const int& numRows, const int& numCols)
             break;
         }
       }
+      //Set the flag for the Ant that it is has moved already during the turn. 
+      //In the case the ant moves to the right or down, then the Board iteration
+      //will not move it again.
       this->hasMovedToday = true;
   }
 }
