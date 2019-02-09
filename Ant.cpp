@@ -33,9 +33,6 @@ Ant::Ant(int row, int col): Critter(row, col)
 {
     this->row = row;
     this->col = col;
-    this->isAnt = true;
-    this->isDoodlebug = false;
-
     //Increases the static member variable of total Ants in existence.
     Ant::totalAnts++;
     //Increase the static member variable counter of Ants created in a step.
@@ -241,12 +238,12 @@ void Ant::move(Critter*** gameBoard, const int& numRows, const int& numCols)
 *****************************************************************************/
 bool Ant::getIsAnt()
 {
-    return this->isAnt;
+    return true;
 }
 
 bool Ant::getIsDoodlebug()
 {
-    return this->isDoodlebug;
+    return false;
 }
 
 /***************************************************************************

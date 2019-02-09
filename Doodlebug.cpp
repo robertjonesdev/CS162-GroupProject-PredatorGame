@@ -37,9 +37,9 @@ Doodlebug::Doodlebug(int row, int col): Critter(row, col)
 	this->row = row;
 	this->col = col;
 	this->starvingCounter = 0;
-	this->isDoodlebug = true;
-	this->isAnt = false;
+    //Increases the static member variable of total Doodlebugs in existence.
     Doodlebug::totalDoodlebugs++;
+    //Increase the static member variable counter of Doodlebugs created in a step.
     Doodlebug::newDoodlebugs++;
 }
 
@@ -369,13 +369,13 @@ void Doodlebug::move(Critter*** gameBoard, const int& numRows, const int& numCol
 *****************************************************************************/
 bool Doodlebug::getIsAnt()
 {
-	return this->isAnt;
+	return false;
 }
 
 //Returns true if Doodlebug, otherwise false
 bool Doodlebug::getIsDoodlebug()
 {
-	return this->isDoodlebug;
+	return true;
 }
 
 /***************************************************************************

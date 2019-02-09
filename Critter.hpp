@@ -12,12 +12,10 @@
 class Critter
 {
   protected:
-    int row,
-        col,
-        breedingCounter;
-    bool hasMovedToday,
-         isAnt,
-         isDoodlebug;
+    int  row,
+         col,
+         breedingCounter;
+    bool hasMovedToday;
     enum Direction {UP, RIGHT, DOWN, LEFT};  //AW: used for movement
 
   public:

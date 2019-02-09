@@ -24,20 +24,18 @@ Critter::Critter(int row, int col)
     this->row = row;
     this->col = col;
     this->breedingCounter = 0;
-    this->isAnt = false;
-    this->isDoodlebug = false;
 }
 
 //Returns true if ant, otherwise false
 //This is a virtual function which will be overwritten by Ant and Doodlebugs
 bool Critter::getIsAnt()
 {
-    return this->isAnt;
+    return false;
 }
 
 //Returns true if doodlebug, otherwise false
 //This is a virtual function which will be overwritten by Ant and Doodlebugs
 bool Critter::getIsDoodlebug()
 {
-    return this->isDoodlebug;
+    return false;
 }
