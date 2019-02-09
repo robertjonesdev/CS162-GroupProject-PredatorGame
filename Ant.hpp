@@ -12,15 +12,27 @@
 
 class Ant: public Critter
 {
-  private:
+    private:
+      static int newAnts,   //Will track all new ants from 1 round.
+                 deadAnts,  //Will track all Ant deaths from 1 round.
+                 totalAnts; //Will track total number of Ants on the boar.
 
-  public:
-    Ant(int, int);
-    void incrementCounters();
-    void breed(Critter*** gameBoard, const int& numRows, const int& numCols);
-    void move(Critter*** gameBoard, const int& numRows, const int& numCols);
-    bool getIsAnt();
-    bool getIsDoodlebug();
+    public:
+      Ant(int, int);
+      ~Ant();
+      void incrementCounters();
+      void breed(Critter*** gameBoard, const int& numRows, const int& numCols);
+      void move(Critter*** gameBoard, const int& numRows, const int& numCols);
+
+      //Accessors
+      bool getIsAnt();
+      bool getIsDoodlebug();
+      static int getTotalAnts();
+      static int getNewAnts();
+      static int getDeadAnts();
+
+      //Modifier
+      static void resetStaticCounters();
 };
 
 #endif

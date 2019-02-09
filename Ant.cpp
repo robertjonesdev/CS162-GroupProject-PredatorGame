@@ -10,17 +10,37 @@
 #include "Ant.hpp"
 #include "Board.hpp"
 
+//Static variable initialization
+int Ant::newAnts = 0;
+int Ant::deadAnts = 0;
+int Ant::totalAnts = 0;
 
 //Ant constructor. Takes an int for the x axis and an int for the y axis
-Ant::Ant(int row, int col): Critter(row, col) {
+Ant::Ant(int row, int col): Critter(row, col)
+{
     this->row = row;
     this->col = col;
     this->isAnt = true;
     this->isDoodlebug = false;
+
+    //Increases the static member variable of total Ants in existence.
+    Ant::totalAnts++;
+    //Increase the static member variable counter of Ants created in a step.    
+    Ant::newAnts++;
+}
+
+//Ant deconstructor, decreases the static variable for total number of ant objects.
+Ant::~Ant()
+{
+    //Decreases the static member variable of total Ants in existence.
+    Ant::totalAnts--;
+    //Increase the static member variable counter of Ants dying in a step.
+    Ant::deadAnts++;
 }
 
 //Checks that breedingCounter is >= 3 and that there is an empty ajacent space. If so, creates new Ant
-void Ant::breed(Critter*** gameBoard, const int& numRows, const int& numCols) {
+void Ant::breed(Critter*** gameBoard, const int& numRows, const int& numCols)
+{
     if (this->breedingCounter >= 3) //change this to 0 to test breeding function
     {
         bool bred = false;
@@ -43,7 +63,7 @@ void Ant::breed(Critter*** gameBoard, const int& numRows, const int& numCols) {
                                 this->breedingCounter = 0;  //reset breeding counter
                                 bred = true;  //exit outer loop condition
                                 upCheck = leftCheck = downCheck = rightCheck = true; //force exit of inner loop
-                                std::cout << "[" << this->row << "][" << this->col << "] successful breeding up!" << std::endl;
+                                //std::cout << "[" << this->row << "][" << this->col << "] successful breeding up!" << std::endl;
                             }
                         }
                         break;
@@ -58,7 +78,7 @@ void Ant::breed(Critter*** gameBoard, const int& numRows, const int& numCols) {
                                 this->breedingCounter = 0;  //reset breeding counter
                                 bred = true;  //exit outer loop condition
                                 upCheck = leftCheck = downCheck = rightCheck = true; //force exit of inner loop
-                                std::cout << "[" << this->row << "][" << this->col << "] successful breeding right!" << std::endl;
+                                //std::cout << "[" << this->row << "][" << this->col << "] successful breeding right!" << std::endl;
                             }
                         }
                         break;
@@ -73,7 +93,7 @@ void Ant::breed(Critter*** gameBoard, const int& numRows, const int& numCols) {
                                 this->breedingCounter = 0;  //reset breeding counter
                                 bred = true;  //exit outer loop condition
                                 upCheck = leftCheck = downCheck = rightCheck = true; //force exit of inner loop
-                                std::cout << "[" << this->row << "][" << this->col << "] successful breeding down!" << std::endl;
+                                //std::cout << "[" << this->row << "][" << this->col << "] successful breeding down!" << std::endl;
                             }
                         }
                         break;
@@ -88,7 +108,7 @@ void Ant::breed(Critter*** gameBoard, const int& numRows, const int& numCols) {
                                 this->breedingCounter = 0;  //reset breeding counter
                                 bred = true;  //exit outer loop condition
                                 upCheck = leftCheck = downCheck = rightCheck = true; //force exit of inner loop
-                                std::cout << "[" << this->row << "][" << this->col << "] successful breeding left!" << std::endl;
+                                //std::cout << "[" << this->row << "][" << this->col << "] successful breeding left!" << std::endl;
                             }
                         }
                         break;
@@ -97,7 +117,7 @@ void Ant::breed(Critter*** gameBoard, const int& numRows, const int& numCols) {
             }
             if (!bred) //if doodlebug hasn't bred after checking all 4 adjacent squares
             {
-                std::cout << "No space to breed :(" << std::endl;
+                //std::cout << "No space to breed :(" << std::endl;
                 bred = true; //break out of loop, but don't reset BreedingCounter.
             }
         }
@@ -105,14 +125,16 @@ void Ant::breed(Critter*** gameBoard, const int& numRows, const int& numCols) {
 }
 
 //Increments breeding counter by 1
-void Ant::incrementCounters() {
+void Ant::incrementCounters()
+{
     ++this->breedingCounter;
     this->hasMovedToday = false;
 }
 
 
 //Moves to an empty adjacent space. If the first move fails, the Ant does not move
-void Ant::move(Critter*** gameBoard, const int& numRows, const int& numCols) {
+void Ant::move(Critter*** gameBoard, const int& numRows, const int& numCols)
+{
     if (!this->hasMovedToday)
     {
       //AW: For reference: enum Direction {UP=0, RIGHT=1, DOWN=2, LEFT=3}
@@ -130,7 +152,7 @@ void Ant::move(Critter*** gameBoard, const int& numRows, const int& numCols) {
                     gameBoard[this->row - 1][this->col] = this;
                     gameBoard[this->row][this->col] = nullptr;
                     this->row--;
-                    std::cout << "[" << this->row << "][" << this->col << "] Ant moved up!" << std::endl;
+                    //std::cout << "[" << this->row << "][" << this->col << "] Ant moved up!" << std::endl;
                 }
             }
             break;
@@ -145,7 +167,7 @@ void Ant::move(Critter*** gameBoard, const int& numRows, const int& numCols) {
                     gameBoard[this->row][this->col + 1] = this;
                     gameBoard[this->row][this->col] = nullptr;
                     this->col++;
-                    std::cout << "[" << this->row << "][" << this->col << "] Ant moved right!" << std::endl;
+                    //std::cout << "[" << this->row << "][" << this->col << "] Ant moved right!" << std::endl;
                 }
             }
             break;
@@ -160,7 +182,7 @@ void Ant::move(Critter*** gameBoard, const int& numRows, const int& numCols) {
                     gameBoard[this->row + 1][this->col] = this;
                     gameBoard[this->row][this->col] = nullptr;
                     this->row++;
-                    std::cout << "[" << this->row << "][" << this->col << "] Ant moved down!" << std::endl;
+                    //std::cout << "[" << this->row << "][" << this->col << "] Ant moved down!" << std::endl;
                 }
             }
             break;
@@ -175,7 +197,7 @@ void Ant::move(Critter*** gameBoard, const int& numRows, const int& numCols) {
                     gameBoard[this->row][this->col - 1] = this;
                     gameBoard[this->row][this->col] = nullptr;
                     this->col--;
-                    std::cout << "[" << this->row << "][" << this->col << "] Ant moved left!" << std::endl;
+                    //std::cout << "[" << this->row << "][" << this->col << "] Ant moved left!" << std::endl;
                 }
             }
             break;
@@ -185,12 +207,48 @@ void Ant::move(Critter*** gameBoard, const int& numRows, const int& numCols) {
   }
 }
 
-//Returns true if ant, otherwise false
-bool Ant::getIsAnt() {
+/***************************************************************************
+** Accessor functions to determine if the called object is an Ant or Doodlebug.
+** getIsAnt(): bool
+** getIsDoodlebug(): bool
+*****************************************************************************/
+bool Ant::getIsAnt()
+{
     return this->isAnt;
 }
 
-//Returns true if doodlebug, otherwise false
-bool Ant::getIsDoodlebug() {
+bool Ant::getIsDoodlebug()
+{
     return this->isDoodlebug;
+}
+
+/***************************************************************************
+** Accessor functions for static variables
+** getTotalAnts(): int
+** getNewAnts(): int
+** getDeadAnts(): int
+*****************************************************************************/
+int Ant::getTotalAnts()
+{
+    return Ant::totalAnts;
+}
+
+int Ant::getNewAnts()
+{
+    return Ant::newAnts;
+}
+
+int Ant::getDeadAnts()
+{
+    return Ant::deadAnts;
+}
+
+/***************************************************************************
+** Modifier functions for static variables
+** resetStaticCounters(): int
+*****************************************************************************/
+void Ant::resetStaticCounters()
+{
+    Ant::newAnts = 0;
+    Ant::deadAnts = 0;
 }

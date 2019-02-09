@@ -6,6 +6,7 @@
 **********************************************************************/
 
 #include <iostream>   //Console input and output
+#include <iomanip>
 #include "Board.hpp"
 #include "Critter.hpp"
 #include "Doodlebug.hpp"
@@ -15,11 +16,11 @@ using std::cout;
 using std::endl;
 
 //Extra Credit Constructor
-Board::Board(int rows, int cols, int numAnts, int numDoodlebugs) {
+Board::Board(int rows, int cols, int numAnts, int numDoodlebugs)
+{
+    this->stepNumber = 1;
     this->numRows = rows;
     this->numCols = cols;
-    this->numAnts = numAnts;
-    this->numDoodlebugs = numDoodlebugs;
     gameBoard = new Critter**[this->numRows];
 
     for (int i = 0; i < this->numRows; i++)
@@ -37,19 +38,21 @@ Board::Board(int rows, int cols, int numAnts, int numDoodlebugs) {
     }
 
     //randomly place all the starting doodlebugs
-    for (int counter = 0; counter < this->numDoodlebugs; counter++)
+    for (int i = 0; i < numDoodlebugs; i++)
     {
-        //picks random row/col, attempts to make Doodlebug
+        //The While-loop picks a random row/col, attempts to make a Doodlebug
         //if unsuccessful pick two more random row/col until success
-        while (!addDoodlebug(rand() % numRows, rand() % this->numCols));
+        //The input validation from the menu ensures there is sufficient spots.
+        while (!addDoodlebug(rand() % this->numRows, rand() % this->numCols));
     }
 
     //randomly place the all the starting ants
-    for (int counter = 0; counter < this->numAnts; counter++)
+    for (int i = 0; i < numAnts; i++)
     {
-        //picks random row/col, attempts to make Ant
+        //The While-loop picks a random row/col, attempts to make an Ant
         //if unsuccessful pick two more random row/col until success
-        while (!addAnt(rand() % numRows, rand() % this->numCols));
+        //The input validation from the menu ensures there is sufficient spots.
+        while (!addAnt(rand() % this->numRows, rand() % this->numCols));
     }
 
     //print the starting board and information about the board
@@ -88,23 +91,35 @@ void Board::runGame(int numSteps)
 {
     while(numSteps > 0)
     {
+        //Function calls to reset the step counters of new/dead Ants and Doodlebugs.
+        Ant::resetStaticCounters();
+        Doodlebug::resetStaticCounters();
         /*************************************************************************
         ** The for loops are separated because ->move() affects the location
         ** of a Doodlebug which would give a seg fault for calling ->breed()
         ** directly after. (Robert)
         **********************************************************************/
-        for(int i = 0; i < numRows; i++){//doodlebugs move first
-            for(int j = 0; j < numCols; j++)  {//each move, iterate through the board
-                //if(gameBoard[i][j] == nullptr) //we need to keep this test, because if we don't skip the nullptrs we try to deference them and that's bad
-                if(gameBoard[i][j] != nullptr && gameBoard[i][j]->getIsDoodlebug())  //These can be combined since the left-hand side will be evaluated first.
+
+        //**** Doodlebugs move first ****
+
+        //Iterate through the board and if the space is a Doodlebug object, reset or increment daily counters.
+        for(int i = 0; i < numRows; i++)
+        {
+            for(int j = 0; j < numCols; j++)
+            {
+                if(gameBoard[i][j] != nullptr && gameBoard[i][j]->getIsDoodlebug())
                 {
                     //cout << "This is a doodlebug [" << i << "][" << j << "]" << endl;  //for testing, remove later
                     gameBoard[i][j]->incrementCounters();
                 }
             }
         }
-        for(int i = 0; i < numRows; i++){//doodlebugs move first
-            for(int j = 0; j < numCols; j++)  {//each move, iterate through the board
+
+        //Iterate through the board and if the space is a Doodlebug object, call it's move function.
+        for(int i = 0; i < numRows; i++)
+        {
+            for(int j = 0; j < numCols; j++)
+            {
                 if(gameBoard[i][j] != nullptr && gameBoard[i][j]->getIsDoodlebug())
                 {
                     //cout << "Trying to move [" << i << "][" << j << "]"  << endl;
@@ -112,8 +127,12 @@ void Board::runGame(int numSteps)
                 }
             }
         }
-        for(int i = 0; i < numRows; i++){//doodlebugs move first
-            for(int j = 0; j < numCols; j++)  {//each move, iterate through the board
+
+        //Iterate through the board and if the space is a Doodlebug object, call it's breed function.
+        for(int i = 0; i < numRows; i++)
+        {
+            for(int j = 0; j < numCols; j++)
+            {
                 if(gameBoard[i][j] != nullptr && gameBoard[i][j]->getIsDoodlebug())
                 {
                     //cout << "Trying to breed [" << i << "][" << j << "]"  << endl;
@@ -121,11 +140,18 @@ void Board::runGame(int numSteps)
                 }
             }
         }
-        for(int i = 0; i < numRows; i++){//doodlebugs move first
-            for(int j = 0; j < numCols; j++)  {//each move, iterate through the board
+
+        //Iterate through the board and if the space is a Doodlebug object, call it's starve function.
+        //Starve function returns a boolean. If true, the board needs to delete the object and set to nullptr.
+        for(int i = 0; i < numRows; i++)
+        {
+            for(int j = 0; j < numCols; j++)
+            {
                 if(gameBoard[i][j] != nullptr && gameBoard[i][j]->getIsDoodlebug())
                 {
                     //cout << "Trying to starve [" << i << "][" << j << "]"  << endl;
+
+                    //if Starve() returns true, the Ant shall die. The board will delete the object.
                     if (gameBoard[i][j]->starve())
                     {
                         delete gameBoard[i][j];
@@ -134,35 +160,37 @@ void Board::runGame(int numSteps)
                 }
             }
         }
-        cout << endl;
-        cout << "Finished Doodlebug move. Ants will move starting from this board:" << endl;
-        printBoard();
-        cout << endl;
+        //cout << "\nFinished Doodlebug move. Ants will move starting from this board:" << endl;
+        //printBoard();
+        //cout << "\n";
 
-        for(int i = 0; i < numRows; i++) //ants move second
+        //*** Ants move second, after all Doodlebugs. ****
+
+        for(int i = 0; i < numRows; i++)
         {
-            for(int j = 0; j < numCols; j++)  //each move, iterate through the board
+            for(int j = 0; j < numCols; j++)
             {
-                if(gameBoard[i][j] != nullptr && gameBoard[i][j]->getIsAnt()) //These can be combined since the left-hand side will be evaluated first.
+                //This If Statement can be combined, but order matters, since the left-hand side will be evaluated first.
+                if(gameBoard[i][j] != nullptr && gameBoard[i][j]->getIsAnt())
                 {
                     gameBoard[i][j]->incrementCounters(); //Consider moving this to separate for loop.
                 }
             }
         }
-        for(int i = 0; i < numRows; i++) //ants move second
+        for(int i = 0; i < numRows; i++)
         {
-            for(int j = 0; j < numCols; j++)  //each move, iterate through the board
+            for(int j = 0; j < numCols; j++)
             {
-                if(gameBoard[i][j] != nullptr && gameBoard[i][j]->getIsAnt()) //These can be combined since the left-hand side will be evaluated first.
+                if(gameBoard[i][j] != nullptr && gameBoard[i][j]->getIsAnt())
                 {
                     //cout << "Ant trying to moved from [" << i << "][" << j << "]" << endl;  //for testing, remove later
                     gameBoard[i][j]->move(gameBoard, numRows, numCols);
                 }
             }
         }
-        for(int i = 0; i < numRows; i++) //ants move second
+        for(int i = 0; i < numRows; i++)
         {
-            for(int j = 0; j < numCols; j++)  //each move, iterate through the board
+            for(int j = 0; j < numCols; j++)
             {
                 if(gameBoard[i][j] != nullptr && gameBoard[i][j]->getIsAnt())
                 {
@@ -171,29 +199,31 @@ void Board::runGame(int numSteps)
                 }
             }
         }
-        cout << endl;
-        cout << "*****Step " << numSteps << " completed!***** Here is the current board:" << endl;
+        cout << "\n*****Step " << this->stepNumber << " completed!***** Here is the current board:" << endl;
         printBoard();
-        cout << endl;
+        printGameInfo();
+        cout << "\n";
         numSteps--;
     }
 }
 
 /*********************************************************************
-** printBoard() EXTRA CREDIT
+** printBoard()
 ** This function prints the board to the console.
 *********************************************************************/
-
 void Board::printBoard()
 {
-    //Top border
+
+    /**
     cout << "  ";
     for (int i = 0; i < numCols; i++)
     {
         cout << i;
     }
     cout << endl;
-    cout << " ";
+    cout << " "; **/
+
+    //Top border
     cout.width(numCols + 2);
     cout.fill('-');
     cout << '-' << endl;
@@ -201,19 +231,19 @@ void Board::printBoard()
 
     for(int i = 0; i < numRows; i++)
     {
-        cout << i << "|";
+        cout << "|";
         for(int j = 0; j < numCols; j++)
         {
             if (gameBoard[i][j] == nullptr)
-            { //it's empty
+            {   //Array element is empty
                 cout << " ";
             }
             else if (gameBoard[i][j]->getIsDoodlebug())
-            { //Is a doodlebug object.
+            {   //Is a doodlebug object.
                 cout << "X";
             }
             else
-            { //Is an ant.
+            {   //Is an ant.
                 cout << "O";
             }
         }
@@ -228,8 +258,8 @@ void Board::printBoard()
 }
 
 /*********************************************************************
-** addAnt(int, int)
-** This function instantiates an Ant object to the gameBoard array.
+** addAnt(int, int) / addDoodlebug(int, int)
+** This function instantiates an Ant / Doodlebug object to the gameBoard array.
 ** First it tests whether the space is empty (nullptr). If it is empty
 ** it continues and returns true. If the space is not empty, then the
 ** function returns false without adding anything to the space.
@@ -258,4 +288,31 @@ bool Board::addDoodlebug(int row, int col)  //if the board spot is unoccupied, m
     {
         return false;
     }
+}
+
+/*********************************************************************
+** printGameInfo()
+** This function prints "end of round" information to the console.
+**     # of new ants created in the round.
+**     # of ants that died im the round.
+**     # of new Doodlebugs created in the round.
+**     # of Doodlebugs that died in the round.
+**     Current # of ants on the board.
+**     Current # of Doodlebugs on the board.
+*********************************************************************/
+void Board::printGameInfo()
+{
+    //numDoodlebugs += newDoodles - deadDoodles;
+    //numAnts += newAnts - deadAnts;
+
+    cout << "After step #" << this->stepNumber << "\n"
+         << Ant::getNewAnts() << " new ants were born this turn" << "\n"
+         << Ant::getDeadAnts() << " ants were eaten by doodlebugs this turn" << "\n"
+         << Doodlebug::getNewDoodlebugs() << " new doodlebugs were born this turn" << "\n"
+         << Doodlebug::getDeadDoodlebugs() << " doodlebugs starved to death this turn" << "\n\n"
+         << "There are currently " << Ant::getTotalAnts() << " ants on the board" << "\n"
+         << "There are currently " << Doodlebug::getTotalDoodlebugs() << " doodlebugs on the board" << endl;
+
+    //this->deadDoodles = this->deadAnts = this->newAnts = this->newDoodles = 0;
+    this->stepNumber++;
 }

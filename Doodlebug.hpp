@@ -16,14 +16,27 @@ class Doodlebug: public Critter
 	private:
 		int starvingCounter;
 
+        static int newDoodlebugs,   //Will track all new Doodlebugs from 1 round.
+                   deadDoodlebugs,  //Will track all Doodlebug deaths from 1 round.
+                   totalDoodlebugs; //Will track totle number of Doodlebugs on the board.
+
 	public:
 		Doodlebug(int, int);
+        ~Doodlebug();
 		void incrementCounters();
 		void breed(Critter*** gameBoard, const int& numRows, const int& numCols);
 		void move(Critter*** gameBoard, const int& numRows, const int& numCols);
 		bool starve();
+
+        //Accessors
 		bool getIsAnt();
 		bool getIsDoodlebug();
+        static int getTotalDoodlebugs();
+        static int getNewDoodlebugs();
+        static int getDeadDoodlebugs();
+
+        //Modifier
+        static void resetStaticCounters();
 };
 
 #endif

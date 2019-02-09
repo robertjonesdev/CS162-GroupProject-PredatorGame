@@ -1,7 +1,7 @@
 /*********************************************************************
 ** Program name:  Predator-Prey Game (Group Project, CS 162-400, Winter 2019)
-** Author:       Group 16 (LB, LB, RJ, DS, AW)
-** Date:         February 2, 2019
+** Author:        Group 16 (LB, LB, RJ, DS, AW)
+** Date:          February 2, 2019
 ** Description:   Board.hpp, Board Class Definition
 **********************************************************************/
 
@@ -16,8 +16,7 @@ class Board
         Critter*** gameBoard;
         int numRows,
             numCols,
-            numAnts,
-            numDoodlebugs;
+            stepNumber;
 
     public:
         //Constructors and Deconstructor
@@ -29,5 +28,6 @@ class Board
         void printBoard();
         bool addAnt(int, int);
         bool addDoodlebug(int, int);
+        void printGameInfo();
 };
 #endif

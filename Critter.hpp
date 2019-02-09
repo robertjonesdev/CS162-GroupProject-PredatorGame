@@ -23,6 +23,7 @@ class Critter
   public:
     //Constructor
     Critter(int, int);
+    virtual ~Critter() {};
 
     //Functions
     virtual bool getIsAnt();
