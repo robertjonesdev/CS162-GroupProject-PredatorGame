@@ -3,10 +3,20 @@
 ** Author:       Group 16 (LB, LB, RJ, DS, AW)
 ** Date:         February 2, 2019
 ** Description:  This is the Ant class implementation file.
-**               Ant is derived from the Critter class.
+**               Ant is derived from the Critter class
+** Methods:      Constructor, deconstructor
+**               incrementCounters: void
+**               breed(Critter, const int&, const int&):void
+**               move(Critter, const int&, const int&):void
+**               getIsAnt:bool
+**               getIsDoodlebug:bool
+**               getTotalAnts:static int
+**               getNewAnts:static int
+**               getDeadAnts:static int
+**               resetStaticCounters:void
 ***************************************************************/
-#include <stdlib.h> //rand
-#include <iostream>
+#include <cstdlib>      //Randon number generation
+#include <iostream>     //Console output
 #include "Ant.hpp"
 #include "Board.hpp"
 
@@ -15,7 +25,10 @@ int Ant::newAnts = 0;
 int Ant::deadAnts = 0;
 int Ant::totalAnts = 0;
 
-//Ant constructor. Takes an int for the x axis and an int for the y axis
+/***************************************************************************
+** Ant constructor
+** Takes an int for the x axis and an int for the y axis
+****************************************************************************/
 Ant::Ant(int row, int col): Critter(row, col)
 {
     this->row = row;
@@ -25,11 +38,14 @@ Ant::Ant(int row, int col): Critter(row, col)
 
     //Increases the static member variable of total Ants in existence.
     Ant::totalAnts++;
-    //Increase the static member variable counter of Ants created in a step.    
+    //Increase the static member variable counter of Ants created in a step.
     Ant::newAnts++;
 }
 
-//Ant deconstructor, decreases the static variable for total number of ant objects.
+/***************************************************************************
+** Ant deconstrucotr
+** Decreases the static variable for total number of ant objects.
+****************************************************************************/
 Ant::~Ant()
 {
     //Decreases the static member variable of total Ants in existence.
@@ -38,6 +54,10 @@ Ant::~Ant()
     Ant::deadAnts++;
 }
 
+/***************************************************************************
+** Ant::move functions
+** Checks that breedingCounter is >= 3 and that there is an empty ajacent space. If so, creates new Ant
+*****************************************************************************/
 //Checks that breedingCounter is >= 3 and that there is an empty ajacent space. If so, creates new Ant
 void Ant::breed(Critter*** gameBoard, const int& numRows, const int& numCols)
 {
@@ -124,7 +144,11 @@ void Ant::breed(Critter*** gameBoard, const int& numRows, const int& numCols)
     }
 }
 
-//Increments breeding counter by 1
+/***************************************************************************
+** Ant::incrementCounters functions
+** Increments breeding counter by 1
+** Resets the internal flag whether the Ant has moved within the turn.
+****************************************************************************/
 void Ant::incrementCounters()
 {
     ++this->breedingCounter;
@@ -132,7 +156,10 @@ void Ant::incrementCounters()
 }
 
 
-//Moves to an empty adjacent space. If the first move fails, the Ant does not move
+/***************************************************************************
+** Ant::move functions
+** Moves to an empty adjacent space. If the first move fails, the Ant does not move
+*****************************************************************************/
 void Ant::move(Critter*** gameBoard, const int& numRows, const int& numCols)
 {
     if (!this->hasMovedToday)

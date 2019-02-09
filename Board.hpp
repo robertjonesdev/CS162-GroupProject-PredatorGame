@@ -26,8 +26,8 @@ class Board
         //Functions
         void runGame(int); //Takes an int to set number of steps
         void printBoard();
+        void printGameInfo();
         bool addAnt(int, int);
         bool addDoodlebug(int, int);
-        void printGameInfo();
 };
 #endif

@@ -3,11 +3,23 @@
 ** Author:       Group 16 (LB, LB, RJ, DS, AW)
 ** Date:         February 2, 2019
 ** Description:  This is the Doodlebug class implementation file.
-**               Doodlebug is derived from the Critter class.
+**               Doodlebug is derived from the Critter class
+** Methods:      Constructor, deconstructor
+**               incrementCounters: void
+**               breed(Critter, const int&, const int&):void
+**               move(Critter, const int&, const int&):void
+**               starve:bool
+**               getIsAnt:bool
+**               getIsDoodlebug:bool
+**               getTotalDoodlebugs:static int
+**               getNewDoodlebugs:static int
+**               getDeadDoodlebugs:static int
+**               resetStaticCounters:void
 ***************************************************************/
+#include <cstdlib>     //Randon number generation
+#include <iostream>         //Console output
 #include "Doodlebug.hpp"
 #include "Board.hpp"
-#include <iostream>
 
 //For reference: enum class Direction {UP=0, RIGHT=1, DOWN=2, LEFT=3}
 
@@ -16,7 +28,10 @@ int Doodlebug::newDoodlebugs = 0;
 int Doodlebug::deadDoodlebugs = 0;
 int Doodlebug::totalDoodlebugs = 0;
 
-//Doodlebug constructor. Takes an int for the row and an int for the column
+/***************************************************************************
+** Doodlebug constructor
+** Takes an int for the x axis and an int for the y axis
+****************************************************************************/
 Doodlebug::Doodlebug(int row, int col): Critter(row, col)
 {
 	this->row = row;
@@ -28,7 +43,10 @@ Doodlebug::Doodlebug(int row, int col): Critter(row, col)
     Doodlebug::newDoodlebugs++;
 }
 
-//Deconstructor
+/***************************************************************************
+** Doodlebug deconstructor
+** Decreases the static variable for total number of Doodlebug objects.
+****************************************************************************/
 Doodlebug::~Doodlebug()
 {
     //Decreases the static member variable of total Doodlebugs in existence.
@@ -37,7 +55,11 @@ Doodlebug::~Doodlebug()
     Doodlebug::deadDoodlebugs++;
 }
 
-//Increments breeding counter and starving counter by 1, resets move tracking bool
+/***************************************************************************
+** Ant::incrementCounters functions
+** Increments breeding counter and starving counter by 1
+** Resets the internal flag whether the Doodlebug has moved within the turn.
+****************************************************************************/
 void Doodlebug::incrementCounters()
 {
 	++this->breedingCounter;
@@ -45,7 +67,11 @@ void Doodlebug::incrementCounters()
 	this->hasMovedToday = false;
 }
 
-//Removes Doodlebug if starvingCounter >= 3
+/***************************************************************************
+** Doodlebug::starve():bool
+** Removes Doodlebug if starvingCounter >= 3 and returns True to the
+** Board class. Board class will delete the object.
+****************************************************************************/
 bool Doodlebug::starve()
 {
 	if(this->starvingCounter >= 3)
@@ -59,7 +85,12 @@ bool Doodlebug::starve()
 	return false;
 }
 
-//Checks that breedingCounter is >= 8 and that there is an empty adjacent space. If so, creates new Doodlebug
+/***************************************************************************
+** Doodlebug::breed()
+** This function will breed the doodlebug in to more doodlebugs.
+** Checks that breedingCounter is >= 8 and that there is an empty adjacent space.
+**  If so, creates new Doodlebug
+****************************************************************************/
 void Doodlebug::breed(Critter*** gameBoard, const int& numRows, const int& numCols)
 {
 	if (this->breedingCounter >= 8)
@@ -156,8 +187,12 @@ void Doodlebug::breed(Critter*** gameBoard, const int& numRows, const int& numCo
 	}
 }
 
-//Moves to an adjacent space with an Ant if possible. If not, moves to an empty adjacent space
-//If surrounded by Doodlebugs, the Doodlebug does not move
+/***************************************************************************
+** Doodlebug::move()
+** This function will move the Doodlebug. It moves to an adjacent space with an
+** Ant if possible. If not, moves to an empty adjacent space. If surrounded by
+** Doodlebugs, the Doodlebug does not move.
+****************************************************************************/
 void Doodlebug::move(Critter*** gameBoard, const int& numRows, const int& numCols)
 {
     if (!this->hasMovedToday)

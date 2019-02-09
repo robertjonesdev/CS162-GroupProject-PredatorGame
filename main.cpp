@@ -4,10 +4,20 @@
 ** Date:         February 6, 2019
 ** Description:  This is the main file that prompts the user to
 **               create a Board object and runs the simulation.
+**			     The simulation is cellular automata in a 2D predator–prey game.
+**				 The preys are ants and the predators are doodlebugs. The
+**				 ants and doodlebugs move about a regular grid. Ants will breed
+**			     and Doodlebugs will breed, eat Ants, and/or starve.
+**			     The user will see each resulting "time step" or "round" displayed
+**				 to the computer console at the conclusion of each time step.
+**				 The user will specify the size of the board, number of starting
+**				 Doodlebugs and Ants, and the number of simulation time steps.
+**				 At the conclusion the user will have the options to quit or
+**				 continue for another user-specified amount of steps.
 ***************************************************************/
-#include <iostream>
-#include <stdlib.h> //rand
-#include <time.h>  //time
+#include <iostream>	    //Console input and output
+#include <cstdlib> 		//seeding random function
+#include <ctime> 		//time() used in seeding the random function
 #include "Board.hpp"
 #include "validation.hpp"
 
@@ -61,7 +71,7 @@ int main()
 	myGame.runGame(numSteps);
 
 	//After the initial simulation is complete, ask the user if they want to continue (while maintaining board state)
-	do 
+	do
 	{
 		cout << numSteps << " steps completed! Would you like to continue running the simulation?\n"
 		<< "1. Yes\n"
@@ -70,7 +80,7 @@ int main()
 		cin >> choice;
 		validateInt(choice, 1, 2);
 
-		if (choice == 1) 
+		if (choice == 1)
 		{
 			numSteps = 0;
 
@@ -81,7 +91,7 @@ int main()
 			myGame.runGame(numSteps);
 		}
 
-	} while (choice !=2);
+	} while (choice != 2);
 
 	return 0;
 }

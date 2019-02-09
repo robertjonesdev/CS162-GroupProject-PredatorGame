@@ -3,10 +3,17 @@
 ** Author:        Group 16
 ** Date:          February 2, 2019
 ** Description:   Board.cpp, Board Class Implementation
+** Methods:       Constructor(int, int, int)
+**                runGame(int):void
+**                getIsAnt:bool
+**                printBoard:void
+**                printGameInfo:void
+**                addAnt(int, int):bool
+**                addDoodlebug(int, int):bool
 **********************************************************************/
 
 #include <iostream>   //Console input and output
-#include <iomanip>
+#include <iomanip>    //Console output formatting
 #include "Board.hpp"
 #include "Critter.hpp"
 #include "Doodlebug.hpp"
@@ -15,7 +22,13 @@
 using std::cout;
 using std::endl;
 
-//Extra Credit Constructor
+/*********************************************************************
+** Board::Constructor(int, int, int)
+** Constructor creates a dynamic 2D Array of Critter Objects and
+**  adds the specified amount of Ants and Critters randomly to the board.
+**  then it will display the starting board before any moves are completed.
+*********************************************************************/
+
 Board::Board(int rows, int cols, int numAnts, int numDoodlebugs)
 {
     this->stepNumber = 1;
@@ -56,16 +69,14 @@ Board::Board(int rows, int cols, int numAnts, int numDoodlebugs)
     }
 
     //print the starting board and information about the board
-    cout << '\n' << endl;
-    cout << "Created " << numRows << "x" << numCols << " board with " << numAnts << " Ants and " << numDoodlebugs << " Doodlebugs!" << endl;
-    cout << "*****Starting Board*****" << endl;
+    cout << "\n\nCreated " << this->numRows << "x" << this->numCols << " board with " << Ant::getNewAnts() << " Ants and " << Doodlebug::getNewDoodlebugs() << " Doodlebugs!\n\n";
+    cout << "***** Starting Board *****" << endl;
     printBoard();
 };
 
 /*********************************************************************
-** Deconstructor capable of handling extra credit.
+** Board::Deconstructor
 ** Deconstructor deletes all dynamically created objects in the gameBoard Array.
-** Tested with Valgrind 2/2/2019 7:49PM
 *********************************************************************/
 Board::~Board()
 {
@@ -84,8 +95,14 @@ Board::~Board()
 
 //Functions
 /*********************************************************************
-** runGame() capable of handling extra credit.
-**
+** Board::runGame(int), void
+** This method takes the number of steps to be simulation.
+** The method will loop until the number of steps is complete.
+** Within each loop, methods of the doodlebugs will be incrementally called
+** and then methods of the ants will be incrementally called.
+** Including:  Doodlebug::move, Doodlebug::breed, Doodlebug::starve
+**             Ant::move, Ant::breed
+**             Board::printBoard, Board::printGameInfo
 *********************************************************************/
 void Board::runGame(int numSteps)
 {
@@ -199,9 +216,10 @@ void Board::runGame(int numSteps)
                 }
             }
         }
-        cout << "\n*****Step " << this->stepNumber << " completed!***** Here is the current board:" << endl;
+        cout << "\n***** Step " << this->stepNumber << " completed! ***** \nHere is the current board:" << endl;
         printBoard();
         printGameInfo();
+        this->stepNumber++;
         cout << "\n";
         numSteps--;
     }
@@ -250,7 +268,6 @@ void Board::printBoard()
         cout << "|\n";
     }
     //Bottom border
-    cout << " ";
     cout.width(numCols + 2);
     cout.fill('-');
     cout << '-' << endl;
@@ -302,17 +319,11 @@ bool Board::addDoodlebug(int row, int col)  //if the board spot is unoccupied, m
 *********************************************************************/
 void Board::printGameInfo()
 {
-    //numDoodlebugs += newDoodles - deadDoodles;
-    //numAnts += newAnts - deadAnts;
-
-    cout << "After step #" << this->stepNumber << "\n"
+    cout << "\nDuring step #" << this->stepNumber << ":\n"
          << Ant::getNewAnts() << " new ants were born this turn" << "\n"
          << Ant::getDeadAnts() << " ants were eaten by doodlebugs this turn" << "\n"
          << Doodlebug::getNewDoodlebugs() << " new doodlebugs were born this turn" << "\n"
          << Doodlebug::getDeadDoodlebugs() << " doodlebugs starved to death this turn" << "\n\n"
          << "There are currently " << Ant::getTotalAnts() << " ants on the board" << "\n"
          << "There are currently " << Doodlebug::getTotalDoodlebugs() << " doodlebugs on the board" << endl;
-
-    //this->deadDoodles = this->deadAnts = this->newAnts = this->newDoodles = 0;
-    this->stepNumber++;
 }
