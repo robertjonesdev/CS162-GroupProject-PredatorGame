@@ -287,7 +287,6 @@ void Doodlebug::move(Critter*** gameBoard, const int& numRows, const int& numCol
 					{  //if we're in the left column, do nothing.
 						if (gameBoard[this->row][this->col - 1] == nullptr)
 						{  //if the space is unoccupied, move
-							//std::cout << "No Ants to eat. Doodlebug moved to [" << this->row << "][" << this->col - 1<< "]." << std::endl;
 							gameBoard[this->row][this->col - 1] = this;
 							gameBoard[this->row][this->col] = nullptr;
 							this->col--;
