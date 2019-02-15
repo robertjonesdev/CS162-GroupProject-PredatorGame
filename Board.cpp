@@ -126,7 +126,6 @@ void Board::runGame(int numSteps)
             {
                 if(gameBoard[i][j] != nullptr && gameBoard[i][j]->getIsDoodlebug())
                 {
-                    //cout << "This is a doodlebug [" << i << "][" << j << "]" << endl;  //for testing, remove later
                     gameBoard[i][j]->incrementCounters();
                 }
             }
@@ -139,7 +138,6 @@ void Board::runGame(int numSteps)
             {
                 if(gameBoard[i][j] != nullptr && gameBoard[i][j]->getIsDoodlebug())
                 {
-                    //cout << "Trying to move [" << i << "][" << j << "]"  << endl;
                     gameBoard[i][j]->move(gameBoard, numRows, numCols);
                 }
             }
@@ -152,7 +150,6 @@ void Board::runGame(int numSteps)
             {
                 if(gameBoard[i][j] != nullptr && gameBoard[i][j]->getIsDoodlebug())
                 {
-                    //cout << "Trying to breed [" << i << "][" << j << "]"  << endl;
                     gameBoard[i][j]->breed(gameBoard, numRows, numCols);
                 }
             }
@@ -166,8 +163,6 @@ void Board::runGame(int numSteps)
             {
                 if(gameBoard[i][j] != nullptr && gameBoard[i][j]->getIsDoodlebug())
                 {
-                    //cout << "Trying to starve [" << i << "][" << j << "]"  << endl;
-
                     //if Starve() returns true, the Ant shall die. The board will delete the object.
                     if (gameBoard[i][j]->starve())
                     {
@@ -177,12 +172,7 @@ void Board::runGame(int numSteps)
                 }
             }
         }
-        //cout << "\nFinished Doodlebug move. Ants will move starting from this board:" << endl;
-        //printBoard();
-        //cout << "\n";
-
         //*** Ants move second, after all Doodlebugs. ****
-
         for(int i = 0; i < numRows; i++)
         {
             for(int j = 0; j < numCols; j++)
@@ -200,7 +190,6 @@ void Board::runGame(int numSteps)
             {
                 if(gameBoard[i][j] != nullptr && gameBoard[i][j]->getIsAnt())
                 {
-                    //cout << "Ant trying to moved from [" << i << "][" << j << "]" << endl;  //for testing, remove later
                     gameBoard[i][j]->move(gameBoard, numRows, numCols);
                 }
             }
@@ -211,7 +200,6 @@ void Board::runGame(int numSteps)
             {
                 if(gameBoard[i][j] != nullptr && gameBoard[i][j]->getIsAnt())
                 {
-                    //cout << "Ant trying to breed from [" << i << "][" << j << "]" << endl;  //for testing, remove later
                     gameBoard[i][j]->breed(gameBoard, numRows, numCols);
                 }
             }
@@ -231,16 +219,6 @@ void Board::runGame(int numSteps)
 *********************************************************************/
 void Board::printBoard()
 {
-
-    /**
-    cout << "  ";
-    for (int i = 0; i < numCols; i++)
-    {
-        cout << i;
-    }
-    cout << endl;
-    cout << " "; **/
-
     //Top border
     cout.width(numCols + 2);
     cout.fill('-');

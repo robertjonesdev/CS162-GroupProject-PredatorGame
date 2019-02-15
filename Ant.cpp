@@ -72,7 +72,6 @@ void Ant::breed(Critter*** gameBoard, const int& numRows, const int& numCols)
                 {
                     case UP:
                     {
-                        //std::cout << "Trying to breed up!" << std::endl;  //for testing, remove later
                         upCheck = true;
                         //Edge guard: if we're in the top row, do nothing.
                         if (this->row != 0)
@@ -84,14 +83,12 @@ void Ant::breed(Critter*** gameBoard, const int& numRows, const int& numCols)
                                 this->breedingCounter = 0;  //reset breeding counter
                                 bred = true;  //exit outer loop condition
                                 upCheck = leftCheck = downCheck = rightCheck = true; //force exit of inner loop
-                                //std::cout << "[" << this->row << "][" << this->col << "] successful breeding up!" << std::endl;
                             }
                         }
                         break;
                     }
                     case RIGHT:
                     {
-                        //std::cout << "Trying to breed right!" << std::endl;  //for testing, remove later
                         rightCheck = true;
                         //Edge guard: if we're in the right column, do nothing.
                         if (this->col != numCols - 1)
@@ -103,14 +100,12 @@ void Ant::breed(Critter*** gameBoard, const int& numRows, const int& numCols)
                                 this->breedingCounter = 0;  //reset breeding counter
                                 bred = true;  //exit outer loop condition
                                 upCheck = leftCheck = downCheck = rightCheck = true; //force exit of inner loop
-                                //std::cout << "[" << this->row << "][" << this->col << "] successful breeding right!" << std::endl;
                             }
                         }
                         break;
                     }
                     case DOWN:
                     {
-                        //std::cout << "Trying to breed down!" << std::endl;  //for testing, remove later
                         downCheck = true;
                         //Edge guard: f we're in the bottom row, do nothing.
                         if (this->row != numRows - 1)
@@ -122,14 +117,12 @@ void Ant::breed(Critter*** gameBoard, const int& numRows, const int& numCols)
                                 this->breedingCounter = 0;  //reset breeding counter
                                 bred = true;  //exit outer loop condition
                                 upCheck = leftCheck = downCheck = rightCheck = true; //force exit of inner loop
-                                //std::cout << "[" << this->row << "][" << this->col << "] successful breeding down!" << std::endl;
                             }
                         }
                         break;
                     }
                     case LEFT:
                     {
-                        //std::cout << "Trying to breed left!" << std::endl;  //for testing, remove later
                         leftCheck = true;
                         //Edge guard: if we're in the left column, do nothing.
                         if (this->col != 0)
@@ -141,7 +134,6 @@ void Ant::breed(Critter*** gameBoard, const int& numRows, const int& numCols)
                                 this->breedingCounter = 0;  //reset breeding counter
                                 bred = true;  //exit outer loop condition
                                 upCheck = leftCheck = downCheck = rightCheck = true; //force exit of inner loop
-                                //std::cout << "[" << this->row << "][" << this->col << "] successful breeding left!" << std::endl;
                             }
                         }
                         break;
@@ -150,7 +142,6 @@ void Ant::breed(Critter*** gameBoard, const int& numRows, const int& numCols)
             }
             if (!bred) //if doodlebug hasn't bred after checking all 4 adjacent squares
             {
-                //std::cout << "No space to breed :(" << std::endl;
                 bred = true; //break out of loop, but don't reset BreedingCounter.
             }
         }
@@ -184,8 +175,6 @@ void Ant::move(Critter*** gameBoard, const int& numRows, const int& numCols)
       {
         case UP:
         {
-            //std::cout << "Trying to move up!" << std::endl;  //for testing, remove later
-
             //Edge guard: if we're in the top row, do nothing.
             if (this->row != 0)
             {
@@ -195,15 +184,12 @@ void Ant::move(Critter*** gameBoard, const int& numRows, const int& numCols)
                     gameBoard[this->row - 1][this->col] = this;
                     gameBoard[this->row][this->col] = nullptr;
                     this->row--;
-                    //std::cout << "[" << this->row << "][" << this->col << "] Ant moved up!" << std::endl;
                 }
             }
             break;
         }
         case RIGHT:
         {
-            //std::cout << "Trying to move right!" << std::endl;  //for testing, remove later
-
             //Edge guard: if we're in the right column, do nothing.
             if (this->col != numCols - 1)
             {
@@ -213,15 +199,12 @@ void Ant::move(Critter*** gameBoard, const int& numRows, const int& numCols)
                     gameBoard[this->row][this->col + 1] = this;
                     gameBoard[this->row][this->col] = nullptr;
                     this->col++;
-                    //std::cout << "[" << this->row << "][" << this->col << "] Ant moved right!" << std::endl;
                 }
             }
             break;
         }
         case DOWN:
         {
-            //std::cout << "Trying to move down!" << std::endl;  //for testing, remove later
-
             //Edge guard: If we're in the bottom row, do nothing.
             if (this->row != numRows - 1)
             {
@@ -231,15 +214,12 @@ void Ant::move(Critter*** gameBoard, const int& numRows, const int& numCols)
                     gameBoard[this->row + 1][this->col] = this;
                     gameBoard[this->row][this->col] = nullptr;
                     this->row++;
-                    //std::cout << "[" << this->row << "][" << this->col << "] Ant moved down!" << std::endl;
                 }
             }
             break;
         }
         case LEFT:
         {
-            //std::cout << "Trying to move left!" << std::endl;  //for testing, remove later
-
             //Edge guard: If we're in the left column, do nothing.
             if (this->col != 0)
             {
@@ -249,13 +229,12 @@ void Ant::move(Critter*** gameBoard, const int& numRows, const int& numCols)
                     gameBoard[this->row][this->col - 1] = this;
                     gameBoard[this->row][this->col] = nullptr;
                     this->col--;
-                    //std::cout << "[" << this->row << "][" << this->col << "] Ant moved left!" << std::endl;
                 }
             }
             break;
         }
       }
-      //Set the flag for the Ant that it is has moved already during the turn. 
+      //Set the flag for the Ant that it is has moved already during the turn.
       //In the case the ant moves to the right or down, then the Board iteration
       //will not move it again.
       this->hasMovedToday = true;
